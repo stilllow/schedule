@@ -122,10 +122,36 @@ h1::first-letter{text-transform:uppercase}
  body.anon #wx{display:none}
  .wrap{max-width:1000px;margin:0 412px 0 max(64px,calc((100vw - 1412px)/2))}
 }
+
+/* Safari/iOS: плавный переход фона в цвет системных панелей */
+@media(hover:none){
+ #bg::before,#bg::after{content:"";position:fixed;left:0;right:0;pointer-events:none}
+ #bg::before{top:0;height:90px;background:linear-gradient(to bottom,var(--b1),transparent)}
+ #bg::after{bottom:0;height:140px;background:linear-gradient(to top,var(--b1),transparent)}
+ .wrap{padding-bottom:calc(140px + env(safe-area-inset-bottom,0px))}
+}
+/* Полосы прокрутки */
+*{scrollbar-width:thin;scrollbar-color:rgba(127,127,127,.5) transparent}
+::-webkit-scrollbar{width:10px;height:10px}::-webkit-scrollbar-track,::-webkit-scrollbar-corner{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(127,127,127,.5);border-radius:99px;border:3px solid transparent;background-clip:padding-box}
+::-webkit-scrollbar-thumb:hover{background:rgba(127,127,127,.75);background-clip:padding-box}::-webkit-scrollbar-button{display:none}
+/* Выпадающие списки */
+.dd{position:relative;margin:4px 0 10px}
+.dv{width:100%;display:flex;align-items:center;justify-content:space-between;gap:8px;padding:10px 14px;border-radius:18px;border:1px solid var(--gb);background:rgba(255,255,255,.12);cursor:pointer;text-align:left;color:var(--tx);box-shadow:inset 1px 1px 2px rgba(0,0,0,.12)}
+.dv .i{width:18px;height:18px;opacity:.7}
+.dl{position:absolute;left:0;right:0;top:calc(100% + 6px);z-index:60;max-height:240px;overflow:auto;padding:6px;border-radius:20px;border:1px solid var(--gb);background:var(--b1);background:color-mix(in srgb,var(--b1) 90%,transparent);-webkit-backdrop-filter:blur(24px);backdrop-filter:blur(24px);box-shadow:0 16px 40px rgba(0,0,0,.3);display:flex;flex-direction:column;gap:2px}
+.dl[hidden]{display:none}.dd.up .dl{top:auto;bottom:calc(100% + 6px)}
+.dl button{border:0;background:none;text-align:left;padding:10px 12px;border-radius:14px;cursor:pointer;color:var(--tx)}
+.dl button:hover{background:rgba(127,127,127,.2)}.dl button.on{background:var(--ac);color:var(--on)}
+.card:has(.dl:not([hidden])){position:relative;z-index:20}
+/* Отметка выполнения */
+.ck2{flex:none;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--gb);background:rgba(255,255,255,.12);color:transparent;display:inline-flex;align-items:center;justify-content:center;padding:0;cursor:pointer;box-shadow:inset 1px 1px 1px rgba(255,255,255,.35)}
+.ck2 .i{width:16px;height:16px;stroke-width:2.4}.ck2.on{background:var(--ac);color:var(--on);border-color:transparent}
+input[type=date],input[type=time]{min-height:46px}
 </style>
 </head>
 <body>
-<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="4"/><path d="M8 3v4M16 3v4M3 10h18"/></symbol><symbol id="i-tasks" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="4"/><path d="M9 4h6v3H9z"/><path d="M9 14l2 2 4-4"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol><symbol id="i-logout" viewBox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"/><path d="M15 8l4 4-4 4M19 12H9"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="3"/><path d="M5 15V7a3 3 0 0 1 3-3h8"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></symbol><symbol id="i-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol><symbol id="i-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol><symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 4L3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4"/></symbol><symbol id="i-partly" viewBox="0 0 24 24"><path d="M12 2v2M4.9 4.9l1.4 1.4M20 12h2M19.1 4.9l-1.4 1.4M15.9 12.6a4 4 0 0 0-5.9-4.1M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6z"/></symbol><symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9z"/></symbol><symbol id="i-rain" viewBox="0 0 24 24"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M16 14v6M8 14v6M12 16v6"/></symbol><symbol id="i-snow" viewBox="0 0 24 24"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M8 15h.01M8 19h.01M12 17h.01M12 21h.01M16 15h.01M16 19h.01"/></symbol><symbol id="i-fog" viewBox="0 0 24 24"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M16 17H7M17 21H9"/></symbol><symbol id="i-storm" viewBox="0 0 24 24"><path d="M6 16.3A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 .5 9"/><path d="M13 12l-3 5h4l-3 5"/></symbol><symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol><symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol></svg>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="4"/><path d="M8 3v4M16 3v4M3 10h18"/></symbol><symbol id="i-tasks" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="4"/><path d="M9 4h6v3H9z"/><path d="M9 14l2 2 4-4"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol><symbol id="i-logout" viewBox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"/><path d="M15 8l4 4-4 4M19 12H9"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="3"/><path d="M5 15V7a3 3 0 0 1 3-3h8"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></symbol><symbol id="i-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol><symbol id="i-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol><symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 4L3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4"/></symbol><symbol id="i-partly" viewBox="0 0 24 24"><path d="M12 2v2M4.9 4.9l1.4 1.4M20 12h2M19.1 4.9l-1.4 1.4M15.9 12.6a4 4 0 0 0-5.9-4.1M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6z"/></symbol><symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9z"/></symbol><symbol id="i-rain" viewBox="0 0 24 24"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M16 14v6M8 14v6M12 16v6"/></symbol><symbol id="i-snow" viewBox="0 0 24 24"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M8 15h.01M8 19h.01M12 17h.01M12 21h.01M16 15h.01M16 19h.01"/></symbol><symbol id="i-fog" viewBox="0 0 24 24"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M16 17H7M17 21H9"/></symbol><symbol id="i-storm" viewBox="0 0 24 24"><path d="M6 16.3A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 .5 9"/><path d="M13 12l-3 5h4l-3 5"/></symbol><symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol><symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol></svg>
 <div id="bg"></div>
 <button id="burger" aria-label="Меню"><svg class="i"><use href="#i-menu"/></svg></button>
 <div id="edge"></div>
@@ -134,6 +160,7 @@ h1::first-letter{text-transform:uppercase}
  <button data-v="today"><span class="ti"><svg class="i"><use href="#i-home"/></svg></span>Сегодня</button>
  <button data-v="week"><span class="ti"><svg class="i"><use href="#i-calendar"/></svg></span>Расписание</button>
  <button data-v="hw"><span class="ti"><svg class="i"><use href="#i-tasks"/></svg></span>Задания</button>
+ <button data-v="acc"><span class="ti"><svg class="i"><use href="#i-user"/></svg></span>Аккаунт</button>
  <button data-v="set"><span class="ti"><svg class="i"><use href="#i-settings"/></svg></span>Настройки</button>
  <div style="flex:1"></div><button data-a="out"><span class="ti"><svg class="i"><use href="#i-logout"/></svg></span>Выйти</button>
 </nav>
@@ -145,8 +172,8 @@ h1::first-letter{text-transform:uppercase}
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
 // ===== Ключи Supabase берутся из файла config.js (лежит рядом с index.html) =====
-const SUPABASE_URL=(window.CFG&&window.CFG.url)||'https://elkmcrzrymbqeseuimbs.supabase.co';
-const SUPABASE_KEY=(window.CFG&&window.CFG.key)||'sb_publishable_ijKgmBBn5DcdVJB7wpB5Ew_C3loFqfb';
+const SUPABASE_URL=(window.CFG&&window.CFG.url)||'ВАШ_PROJECT_URL';
+const SUPABASE_KEY=(window.CFG&&window.CFG.key)||'ВАШ_ПУБЛИЧНЫЙ_КЛЮЧ';
 // =================================================================================
 const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
 const DAYS=['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'],WN={up:'Над чертой',down:'Под чертой',both:'Каждая неделя'};
@@ -185,7 +212,7 @@ async function load(){
  const [p,l,h,o]=await Promise.all([sb.from('profiles').select('*').eq('id',me.id).maybeSingle(),sb.from('lessons').select('*'),sb.from('homework').select('*'),sb.from('overrides').select('*')]);
  const e=p.error||l.error||h.error||o.error;if(e)toast('Ошибка загрузки: '+e.message+'. Выполнен ли migration_v2.sql?');
  const r=p.data||{},date=r.anchor_week_start||ymd(monday(new Date()));
- P={anchor:{wk:wk(pd(date)),type:r.anchor_week_type||'up',date},remind:r.remind_minutes||10,bells:r.bells||BELLS,sem:[r.semester_start||'',r.semester_end||''],hol:r.holidays||[],nt:r.notify_text||PRE[1],theme:r.theme||'graphite',font:r.font||'system'};
+ P={name:r.display_name||'',anchor:{wk:wk(pd(date)),type:r.anchor_week_type||'up',date},remind:r.remind_minutes||10,bells:r.bells||BELLS,sem:[r.semester_start||'',r.semester_end||''],hol:r.holidays||[],nt:r.notify_text||PRE[1],theme:r.theme||'graphite',font:r.font||'system'};
  L=(l.data||[]).map(fromRow);HW=h.data||[];OV={};(o.data||[]).forEach(x=>OV[x.lesson_id+x.on_date]=x);
  wsel=wkType(new Date());applyUI(P.theme,P.font);
 }
@@ -205,7 +232,7 @@ function wkHTML(){
  DAYS.forEach((n,i)=>{const ls=lessonsFor(i,wsel).filter(ms);h+=`<div class="dh"><h2>${n}</h2><button class="btn g" data-a="add" data-d="${i}">${ic('plus')}Добавить</button></div>`+(ls.length?ls.map(l=>card(l,'edit')).join(''):'<div class="empty" style="padding:8px">Нет занятий</div>')});return h}
 function hwHTML(){
  const t=ymd(new Date()),op=HW.filter(h=>!h.done).sort((a,b)=>a.due_date.localeCompare(b.due_date)),dn=HW.filter(h=>h.done);
- const row=h=>{const ls=L.find(l=>l.id===h.lesson_id),od=!h.done&&h.due_date<t;return`<div class="card gl l"><input type="checkbox" class="ck" data-a="hwt" data-id="${h.id}" ${h.done?'checked':''}><div class="m"><b style="${h.done?'text-decoration:line-through;opacity:.6':''}">${esc(h.title)}</b><span class="${od?'od':''}">${ls?esc(ls.subject)+' · ':''}до ${fmt(h.due_date)}${od?' · просрочено':''}</span></div><button class="ib" data-a="hwe" data-id="${h.id}" aria-label="Изменить">${ic('edit')}</button><button class="ib" data-a="hwd" data-id="${h.id}" aria-label="Удалить">${ic('trash')}</button></div>`};
+ const row=h=>{const ls=L.find(l=>l.id===h.lesson_id),od=!h.done&&h.due_date<t;return`<div class="card gl l"><button class="ck2${h.done?' on':''}" data-a="hwt" data-id="${h.id}" aria-label="Выполнено">${ic('check')}</button><div class="m"><b style="${h.done?'text-decoration:line-through;opacity:.6':''}">${esc(h.title)}</b><span class="${od?'od':''}">${ls?esc(ls.subject)+' · ':''}до ${fmt(h.due_date)}${od?' · просрочено':''}</span></div><button class="ib" data-a="hwe" data-id="${h.id}" aria-label="Изменить">${ic('edit')}</button><button class="ib" data-a="hwd" data-id="${h.id}" aria-label="Удалить">${ic('trash')}</button></div>`};
  return`<div class="top"><h1>Задания</h1><button class="btn" data-a="hwa">${ic('plus')}Задание</button></div>`+(op.length?op.map(row).join(''):'<div class="empty">Невыполненных заданий нет</div>')+(dn.length?'<h2>Выполнено</h2>'+dn.map(row).join(''):'')}
 function render(){
  const A=$('#app');document.body.classList.toggle('anon',!me);if(!sb)return;
@@ -214,7 +241,7 @@ function render(){
  <div class="seg"><button class="btn ${mode==='in'?'':'g'}" data-a="mode" data-m="in">Вход</button><button class="btn ${mode==='up'?'':'g'}" data-a="mode" data-m="up">Регистрация</button></div>
  <form id="af"><label>Email</label><input id="u" type="email" autocomplete="email" required maxlength="100"><label>Пароль</label><input id="p" type="password" autocomplete="${mode==='in'?'current-password':'new-password'}" required minlength="6">
  ${mode==='up'?'<label>Повторите пароль</label><input id="p2" type="password" autocomplete="new-password" required>':''}
- <div class="err">${esc(err)}</div>${info?`<p class="n">${esc(info)}</p>`:''}<button class="btn" style="width:100%">${mode==='in'?'Войти':'Создать аккаунт'}</button></form></div>`;return}
+ <div class="err">${esc(err)}</div>${info?`<p class="n">${esc(info)}</p>`:''}<button class="btn" style="width:100%">${mode==='in'?'Войти':'Создать аккаунт'}</button>${mode==='in'?'<button type="button" class="btn d" data-a="forgot" style="width:100%;margin-top:6px">Забыли пароль?</button>':''}</form></div>`;return}
  if(!P){A.innerHTML='<div class="empty">Загрузка…</div>';return}
  const now=new Date();let h='';
  if(view==='today'){
@@ -226,6 +253,7 @@ function render(){
   h=`<div class="seg2"><div class="sg gl"><button class="btn ${wsel==='up'?'':'g'}" data-a="wsel" data-w="up">Над чертой</button><button class="btn ${wsel==='down'?'':'g'}" data-a="wsel" data-w="down">Под чертой</button></div><div class="sg gl"><button class="btn ${gv==='list'?'':'g'}" data-a="gv" data-g="list">Список</button><button class="btn ${gv==='grid'?'':'g'}" data-a="gv" data-g="grid">Сетка</button></div></div>
   <input id="q" placeholder="Поиск по предмету или преподавателю" value="${esc(q)}"><div id="wk">${wkHTML()}</div>`;
  }else if(view==='hw')h=hwHTML();
+ else if(view==='acc')h=accHTML();
  else{
   const np=window.Notification?Notification.permission:'unsupported',cust=cm||!PRE.includes(P.nt),ct=wkType(now);
   h=`<h1>Настройки</h1><div class="card gl"><h2 style="margin-top:0">Оформление</h2><div class="seg">${THEMES.map(([k,n,c])=>`<button class="btn ${P.theme===k?'':'g'}" data-a="th" data-v="${k}"><i class="dot" style="background:${c}"></i>${n}</button>`).join('')}</div>
@@ -315,6 +343,12 @@ document.addEventListener('click',async e=>{
  else if(a==='city')findCity();
  else if(a==='geo')geoCity();
  else if(a==='goset'){view='set';render()}
+ else if(a==='accname'){const v=$('#an').value.trim(),r=await sb.from('profiles').upsert({id:me.id,display_name:v||null});if(r.error)return toast('Ошибка: '+r.error.message);P.name=v;toast('Имя сохранено');render()}
+ else if(a==='accmail'){const v=$('#ae').value.trim();if(!v)return toast('Введите новую почту');const r=await sb.auth.updateUser({email:v});toast(r.error?tr(r.error.message):'Письмо с подтверждением отправлено на новую почту')}
+ else if(a==='accpass'){const v=$('#ap').value;if(v.length<6)return toast('Пароль слишком короткий (минимум 6 символов)');if(v!==$('#ap2').value)return toast('Пароли не совпадают');const r=await sb.auth.updateUser({password:v});toast(r.error?tr(r.error.message):'Пароль изменён');if(!r.error)render()}
+ else if(a==='accwipe'){if(!confirm('Удалить все занятия, задания и отмены? Это нельзя отменить.'))return;const r1=await sb.from('homework').delete().eq('user_id',me.id),r2=await sb.from('lessons').delete().eq('user_id',me.id),er=r1.error||r2.error;if(er)return toast('Ошибка: '+er.message);L=[];HW=[];OV={};toast('Расписание очищено');render()}
+ else if(a==='accdel'){if(!confirm('Удалить аккаунт навсегда вместе со всеми данными?'))return;const r=await sb.rpc('delete_my_account');if(r.error)return toast('Не удалось удалить: '+r.error.message+'. Выполнен ли migration_v3.sql?');await sb.auth.signOut();me=null;P=null;L=[];HW=[];OV={};view='today';render();toast('Аккаунт удалён')}
+ else if(a==='forgot'){const v=(($('#u')||{}).value||'').trim();if(!v)return toast('Сначала введите почту в поле выше');const r=await sb.auth.resetPasswordForEmail(v,{redirectTo:location.href.split('#')[0]});toast(r.error?tr(r.error.message):'Письмо для сброса пароля отправлено')}
  else if(a==='pc')$('#df').c.value=t.dataset.c;
  else if(a==='day'){cur=pd(t.dataset.d);view='today';render()}
  else if(a==='notif'){if(!window.Notification)return toast('Браузер не поддерживает уведомления. Напоминания будут показываться на странице.');await Notification.requestPermission();render()}
@@ -363,6 +397,31 @@ async function findCity(){const v=(($('#cityin')||{}).value||'').trim();if(!v)re
  try{const r=await fetch('https://geocoding-api.open-meteo.com/v1/search?count=1&language=ru&name='+encodeURIComponent(v)),j=await r.json(),x=(j.results||[])[0];if(!x)return toast('Город не найден');setCity({name:x.name,lat:x.latitude,lon:x.longitude})}catch(e){toast('Не удалось найти город')}}
 function geoCity(){if(!navigator.geolocation)return toast('Геолокация недоступна');navigator.geolocation.getCurrentPosition(p=>setCity({name:'Моё местоположение',lat:p.coords.latitude,lon:p.coords.longitude}),()=>toast('Нет доступа к геопозиции'))}
 setInterval(renderWx,10000);setInterval(loadWx,1800000);
+function accHTML(){
+ const nm=P.name||'',mail=me.email||'';
+ return`<h1>Аккаунт</h1><div class="card gl l" style="--c:var(--ac);margin-top:12px"><span class="ti" style="width:52px;height:52px;border-radius:50%;font-size:1.4rem;font-weight:700">${esc((nm||mail||'?')[0].toUpperCase())}</span><div class="m"><b>${esc(nm||mail.split('@')[0])}</b><span>${esc(mail)}</span></div></div>
+ <div class="card gl"><h2 style="margin-top:0">Профиль</h2><label>Имя</label><input id="an" maxlength="40" value="${esc(nm)}" placeholder="Как к вам обращаться"><button class="btn" data-a="accname">Сохранить имя</button></div>
+ <div class="card gl"><h2 style="margin-top:0">Почта</h2><label>Новая почта</label><input id="ae" type="email" placeholder="${esc(mail)}"><button class="btn" data-a="accmail">Сменить почту</button><p class="n">Письмо с подтверждением придёт на новый адрес.</p></div>
+ <div class="card gl"><h2 style="margin-top:0">Пароль</h2><label>Новый пароль</label><input id="ap" type="password" autocomplete="new-password"><label>Повторите пароль</label><input id="ap2" type="password" autocomplete="new-password"><button class="btn" data-a="accpass">Сменить пароль</button></div>
+ <div class="card gl"><h2 style="margin-top:0">Данные</h2><div class="row"><button class="btn g" data-a="out">${ic('logout')}Выйти</button><button class="btn d" data-a="accwipe">Очистить расписание</button></div><button class="btn d" data-a="accdel" style="margin-top:8px">Удалить аккаунт</button><p class="n">«Очистить расписание» удаляет все занятия, задания и отмены. Удаление аккаунта необратимо.</p></div>`}
+const closeDD=()=>$$('.dl').forEach(l=>l.hidden=true);
+function enhance(){
+ $$('select:not([data-e])').forEach(sel=>{
+  sel.dataset.e=1;sel.style.display='none';
+  const d=document.createElement('div');d.className='dd';
+  d.innerHTML='<button type="button" class="dv" aria-haspopup="listbox"><span></span>'+ic('down')+'</button><div class="dl" hidden></div>';
+  sel.after(d);
+  const b=d.querySelector('.dv'),l=d.querySelector('.dl'),sp=b.firstChild;
+  l.innerHTML=[...sel.options].map((o,i)=>`<button type="button" data-i="${i}">${esc(o.text)}</button>`).join('');
+  const sync=()=>{sp.textContent=sel.selectedIndex>=0?sel.options[sel.selectedIndex].text:'';[...l.children].forEach((o,i)=>o.classList.toggle('on',i===sel.selectedIndex))};
+  sync();
+  b.onclick=e=>{e.stopPropagation();const was=!l.hidden;closeDD();if(!was){l.hidden=false;const r=b.getBoundingClientRect();d.classList.toggle('up',innerHeight-r.bottom<260&&r.top>innerHeight-r.bottom)}};
+  l.onclick=e=>{const x=e.target.closest('button');if(!x)return;e.stopPropagation();sel.selectedIndex=+x.dataset.i;sel.dispatchEvent(new Event('change',{bubbles:true}));sync();closeDD()};
+ });
+}
+document.addEventListener('click',closeDD);
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeDD()});
+new MutationObserver(enhance).observe(document.body,{childList:true,subtree:true});
 const fired=new Set();
 setInterval(()=>{
  if(!me||!P)return;const n=new Date();if(dayInfo(n))return;
@@ -375,6 +434,7 @@ setInterval(()=>{
  const A=$('#app');
  if(!window.supabase||SUPABASE_URL.startsWith('ВАШ')||SUPABASE_KEY.startsWith('ВАШ')){document.body.classList.add('anon');A.innerHTML='<div class="auth gl"><h1>Нужна настройка</h1><p class="n">Создайте рядом с index.html файл config.js и впишите в него Project URL и публичный ключ Supabase.</p></div>';return}
  sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);renderWx();loadWx();
+ sb.auth.onAuthStateChange(ev=>{if(ev==='PASSWORD_RECOVERY')setTimeout(async()=>{const {data}=await sb.auth.getSession();if(data.session){me=data.session.user;P=null;view='acc';render();await load();render();toast('Введите новый пароль в разделе «Аккаунт»')}},0)});
  A.innerHTML='<div class="empty">Загрузка…</div>';
  try{const {data}=await sb.auth.getSession();if(data.session){me=data.session.user;render();await load()}}catch(_){}
  render();

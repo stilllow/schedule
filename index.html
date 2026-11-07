@@ -1,0 +1,384 @@
+<!doctype html>
+<html lang="ru" data-th="graphite" data-f="system">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#06141B">
+<title>Моё расписание</title>
+<style>
+@font-face{font-family:Rostov;src:url(fonts/rostov.ttf) format("truetype");font-display:swap}
+@font-face{font-family:Lena;src:url(fonts/lena.ttf) format("truetype");font-display:swap}
+@font-face{font-family:Izax;src:url(fonts/izax.otf) format("opentype");font-display:swap}
+@font-face{font-family:Daray;src:url(fonts/daray.otf) format("opentype");font-display:swap}
+:root{--ff:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html[data-f=rostov]{--ff:Rostov,system-ui,sans-serif}html[data-f=lena]{--ff:Lena,system-ui,sans-serif}html[data-f=izax]{--ff:Izax,system-ui,sans-serif}html[data-f=daray]{--ff:Daray,system-ui,sans-serif}
+html[data-th=graphite]{--b1:#06141B;--b2:#11212D;--k1:#4A5C6A;--k2:#253745;--tx:#CCD0CF;--mu:#9BA8AB;--ac:#9BA8AB;--on:#06141B;--gl:rgba(37,55,69,.5);--gb:rgba(204,208,207,.16);color-scheme:dark}
+html[data-th=fog]{--b1:#CCD0CF;--b2:#9BA8AB;--k1:#fff;--k2:#4A5C6A;--tx:#06141B;--mu:#3d4d59;--ac:#253745;--on:#CCD0CF;--gl:rgba(255,255,255,.42);--gb:rgba(255,255,255,.65)}
+html[data-th=bordo]{--b1:#F5DABF;--b2:#e9bf9c;--k1:#6C151E;--k2:#0F3D3A;--tx:#2b0a0e;--mu:#7a4a4e;--ac:#6C151E;--on:#F5DABF;--gl:rgba(255,255,255,.4);--gb:rgba(255,255,255,.65)}
+html[data-th=forest]{--b1:#0a2927;--b2:#0F3D3A;--k1:#6C151E;--k2:#1d6b64;--tx:#F5DABF;--mu:#c9ad94;--ac:#F5DABF;--on:#0F3D3A;--gl:rgba(15,61,58,.5);--gb:rgba(245,218,191,.18);color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+body{margin:0;color:var(--tx);font:16px/1.45 var(--ff);min-height:100vh}
+#bg{position:fixed;inset:0;z-index:-1;background:radial-gradient(60vmax 60vmax at 8% 0%,var(--k1),transparent 60%),radial-gradient(55vmax 55vmax at 100% 100%,var(--k2),transparent 60%),linear-gradient(160deg,var(--b1),var(--b2))}
+.gl,dialog,#nav{background:var(--gl);border:1px solid var(--gb);-webkit-backdrop-filter:blur(22px) saturate(160%);backdrop-filter:blur(22px) saturate(160%);box-shadow:0 8px 32px rgba(0,0,0,.16),inset 0 1px 0 rgba(255,255,255,.14)}
+.wrap{max-width:980px;margin:0 auto;padding:60px 16px 32px}
+h1{font-size:1.35rem;margin:0}h2{font-size:1.05rem;margin:18px 0 8px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;margin-bottom:12px}
+.badge{background:var(--gl);border:1px solid var(--gb);border-radius:99px;padding:4px 12px;font-size:.85rem;font-weight:600}
+.card{border-radius:18px;padding:12px 14px;margin-bottom:8px}
+.l{display:flex;gap:12px;align-items:center;border-left:4px solid var(--c,var(--ac))}
+.t{min-width:56px;font-weight:700;font-variant-numeric:tabular-nums}.t small{display:block;color:var(--mu);font-weight:400}
+.m{flex:1;min-width:0}.m b{display:block;overflow-wrap:anywhere}.m span{display:block;color:var(--mu);font-size:.9rem}
+.now{box-shadow:0 0 0 2px var(--ac),0 8px 32px rgba(0,0,0,.16)}
+.tag{display:inline-block!important;font-size:.75rem!important;border:1px solid var(--gb);border-radius:6px;padding:0 6px;margin-top:2px}.tag.x{color:#ff7b7b!important}
+.od{color:#ff7b7b!important}
+button,input,select,textarea{font:inherit;color:inherit}
+.btn{border:0;background:var(--ac);color:var(--on);padding:10px 16px;border-radius:12px;font-weight:600;cursor:pointer}
+.btn.g{background:rgba(127,127,127,.2);color:var(--tx)}.btn.d{background:none;color:#ff7b7b}
+.ib{border:0;background:none;cursor:pointer;padding:6px 8px;color:var(--mu);font-size:1.05rem}
+input,select,textarea{width:100%;padding:10px 12px;border:1px solid var(--gb);border-radius:12px;background:rgba(127,127,127,.14);margin:4px 0 10px}
+input[type=color]{height:42px;padding:3px}.ck{width:22px;height:22px;margin:0;accent-color:var(--ac)}
+label{font-size:.85rem;color:var(--mu)}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.seg{display:flex;gap:6px;margin-bottom:8px;flex-wrap:wrap}.seg .btn{flex:1;white-space:nowrap}
+.dh{display:flex;justify-content:space-between;align-items:center}
+.empty{color:var(--mu);text-align:center;padding:22px 8px}
+.gw{overflow-x:auto;padding-bottom:6px}.grid{display:grid;grid-template-columns:repeat(6,minmax(190px,1fr));gap:10px}
+.dot{display:inline-block;width:12px;height:12px;border-radius:50%;margin-right:6px;vertical-align:-1px}
+.bl{display:grid;grid-template-columns:auto 1fr 1fr auto;gap:8px;align-items:center}.bl input{margin:0}
+dialog{color:var(--tx);border-radius:22px;width:min(94vw,460px);padding:18px;max-height:92vh;overflow:auto}
+dialog::backdrop{background:rgba(0,0,0,.45)}
+.auth{max-width:380px;margin:8vh auto 0;padding:22px;border-radius:24px}
+.err{color:#ff7b7b;min-height:1.3em;font-size:.9rem}
+p.n{color:var(--mu);font-size:.85rem}
+#toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--tx);color:var(--b1);padding:10px 16px;border-radius:14px;max-width:90vw;display:none;z-index:50}
+#nav{position:fixed;left:0;top:0;bottom:0;width:250px;z-index:30;transform:translateX(-105%);transition:transform .25s;padding:calc(16px + env(safe-area-inset-top,0px)) 12px 16px;display:flex;flex-direction:column;gap:6px;border-radius:0 24px 24px 0}
+#nav.open{transform:none}
+#nav .brand{font-weight:700;font-size:1.15rem;padding:4px 10px 12px}
+#nav button{text-align:left;border:0;background:none;padding:12px 14px;border-radius:14px;cursor:pointer;font-weight:600;color:var(--tx)}
+#nav button.on{background:var(--ac);color:var(--on)}
+#burger{position:fixed;left:12px;top:calc(12px + env(safe-area-inset-top,0px));z-index:25;width:44px;height:44px;border-radius:14px;border:1px solid var(--gb);background:var(--gl);-webkit-backdrop-filter:blur(18px);backdrop-filter:blur(18px);font-size:1.2rem;cursor:pointer;color:var(--tx)}
+#edge{display:none}
+@media(hover:hover) and (pointer:fine){#edge{display:block;position:fixed;left:0;top:0;bottom:0;width:14px;z-index:29}#edge:hover+#nav,#nav:hover{transform:none}#burger{display:none}.wrap{padding-top:28px}}
+body.anon #nav,body.anon #burger,body.anon #edge{display:none}
+@media(max-width:520px){.row{grid-template-columns:1fr}}
+
+html[data-th=cream]{--b1:#F2E9D8;--b2:#e3d5b8;--k1:#59718A;--k2:#E07A47;--tx:#1f2a35;--mu:#5b6670;--ac:#59718A;--on:#F2E9D8;--gl:rgba(255,255,255,.34);--gb:rgba(255,255,255,.7)}
+html[data-th=teal]{--b1:#0b2a29;--b2:#2F6F6D;--k1:#8FA68F;--k2:#59718A;--tx:#F2E9D8;--mu:#a9c4b9;--ac:#8FA68F;--on:#0b2a29;--gl:rgba(47,111,109,.34);--gb:rgba(242,233,216,.22);color-scheme:dark}
+html[data-th=terra]{--b1:#F2E9D8;--b2:#E8B98F;--k1:#E07A47;--k2:#D4A72C;--tx:#33180b;--mu:#7a5236;--ac:#E07A47;--on:#2b1206;--gl:rgba(255,255,255,.34);--gb:rgba(255,255,255,.7)}
+html[data-th=plum]{--b1:#1d1022;--b2:#5B3A62;--k1:#C47C8A;--k2:#5B3A62;--tx:#F2E9D8;--mu:#cdb6cd;--ac:#C47C8A;--on:#1d1022;--gl:rgba(91,58,98,.38);--gb:rgba(242,233,216,.22);color-scheme:dark}
+html[data-th=fog],html[data-th=bordo],html[data-th=cream],html[data-th=terra]{--ha:.5;--sh:rgba(60,40,30,.18)}
+#bg{background:radial-gradient(45vmax 45vmax at 15% 10%,var(--k1),transparent 62%),radial-gradient(50vmax 50vmax at 90% 20%,var(--k2),transparent 60%),radial-gradient(55vmax 55vmax at 70% 100%,var(--k1),transparent 60%),linear-gradient(160deg,var(--b1),var(--b2))}
+/* Liquid glass */
+.gl,dialog,#nav,.badge,#burger,.wds{background:linear-gradient(135deg,rgba(255,255,255,var(--ha,.2)),rgba(255,255,255,.03) 55%,rgba(255,255,255,.06)),var(--gl);-webkit-backdrop-filter:blur(30px) saturate(190%);backdrop-filter:blur(30px) saturate(190%);border:1px solid var(--gb);box-shadow:inset 1.5px 1.5px 1px rgba(255,255,255,.5),inset -1px -1px 1px rgba(255,255,255,.16),inset 0 0 26px rgba(255,255,255,.08),0 14px 38px var(--sh,rgba(0,0,0,.24))}
+.card{border-radius:28px;padding:14px 16px}dialog{border-radius:32px}.badge{border-radius:999px}
+.l{border-left:0}.l::before{content:"";width:5px;align-self:stretch;border-radius:9px;background:var(--c,var(--ac));flex:none}
+.i{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border-radius:999px;padding:11px 18px;box-shadow:inset 1px 1px 1px rgba(255,255,255,.45),0 6px 16px rgba(0,0,0,.14)}
+.btn .i{width:18px;height:18px}
+.btn.g{background:rgba(255,255,255,.14);color:var(--tx);border:1px solid var(--gb);box-shadow:inset 1.5px 1.5px 1px rgba(255,255,255,.4),inset -1px -1px 1px rgba(255,255,255,.1)}
+.btn.d{box-shadow:none;background:none}
+.ib,.ti{border:1px solid var(--gb);background:rgba(255,255,255,.12);color:inherit;box-shadow:inset 1.5px 1.5px 1px rgba(255,255,255,.4),inset -1px -1px 1px rgba(255,255,255,.1);display:inline-flex;align-items:center;justify-content:center;flex:none}
+.ib{width:38px;height:38px;padding:0;border-radius:14px;color:var(--tx);cursor:pointer}.ti{width:40px;height:40px;border-radius:14px}
+.ib:hover,.btn.g:hover{background:rgba(255,255,255,.26)}
+.l .ib{width:34px;height:34px;border-radius:12px}.l .ib .i{width:18px;height:18px}
+input,select,textarea{border-radius:18px;background:rgba(255,255,255,.12)}
+#nav{left:12px;top:calc(12px + env(safe-area-inset-top,0px));bottom:calc(12px + env(safe-area-inset-bottom,0px));border-radius:32px;transform:translateX(-125%);padding:14px 10px}
+#nav.open{transform:none}
+#nav .brand{display:flex;align-items:center;gap:10px;padding:2px 6px 12px}
+#nav button{display:flex;align-items:center;gap:12px;padding:5px 12px 5px 5px;border-radius:999px}
+#nav button.on{background:rgba(255,255,255,.16);color:var(--tx);box-shadow:inset 1px 1px 1px rgba(255,255,255,.4)}
+#nav button.on .ti{background:var(--ac);color:var(--on);border-color:transparent}
+#burger{display:flex;align-items:center;justify-content:center;border-radius:16px}
+.wds{display:flex;gap:4px;padding:6px;border-radius:999px;margin-bottom:12px}
+.wd{flex:1;min-width:0;border:0;background:none;padding:9px 0;border-radius:999px;font-weight:600;color:var(--tx);cursor:pointer}
+.wd.on{background:#fff;color:#14202b;box-shadow:0 4px 14px rgba(0,0,0,.22)}
+.sw{display:flex;gap:8px;flex-wrap:wrap;margin:6px 0 4px}.sw button{width:30px;height:30px;border-radius:50%;border:2px solid rgba(255,255,255,.6);cursor:pointer;padding:0}
+
+/* iOS: фон темы под системными панелями */
+html{background:var(--b1);-webkit-text-size-adjust:100%}
+body{min-height:100vh;min-height:100dvh}
+#bg{top:-140px;bottom:-140px;left:0;right:0;inset:-140px 0}
+/* Мобильная вёрстка */
+.dn{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.dn .btn.sq{flex:none;width:46px;height:46px;padding:0}.dn .btn:not(.sq){flex:none;height:46px}
+.dn input{flex:1;min-width:0;margin:0;height:46px}
+.seg2{display:grid;gap:8px;margin-bottom:10px}
+.sg{display:flex;gap:4px;padding:4px;border-radius:999px}
+.sg .btn{flex:1;padding:9px 10px;white-space:nowrap}.sg .btn.g{background:none;border:0;box-shadow:none}
+.dh h2{margin:14px 0 6px}.dh .btn.g{padding:8px 14px;font-size:.9rem}.empty{padding:14px 8px}
+h1::first-letter{text-transform:uppercase}
+@media(max-width:600px){.wrap{padding:64px 14px 40px}.seg2{grid-template-columns:1fr}}
+@media(min-width:601px){.seg2{grid-template-columns:1fr 1fr}}
+/* Виджет времени и погоды (только ПК) */
+#wx{display:none}
+.wxh{display:flex;justify-content:space-between;gap:8px;color:var(--mu);font-size:.9rem}.wxh span:first-child::first-letter{text-transform:uppercase}
+.wxm{display:flex;justify-content:space-between;align-items:center;margin:6px 0 4px}
+.wxt{font-size:3.3rem;line-height:1.05;font-weight:700;font-variant-numeric:tabular-nums}
+.wxw{display:flex;align-items:center;gap:8px;font-size:2.3rem}.wxw .i{width:42px;height:42px}
+.wxs{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:10px;font-size:.9rem}
+.pl{display:inline-flex;align-items:center;gap:2px;padding:4px 10px;border-radius:12px;background:rgba(0,0,0,.18);border:1px solid var(--gb)}.pl .i{width:14px;height:14px}
+#wx .wds{margin:0;border:0;box-shadow:none;background:rgba(255,255,255,.1);-webkit-backdrop-filter:none;backdrop-filter:none}
+@media(hover:hover) and (pointer:fine) and (min-width:1100px){
+ #wx{display:block;position:fixed;top:20px;right:20px;width:370px;border-radius:32px;padding:18px 20px;z-index:10}
+ body.anon #wx{display:none}
+ .wrap{max-width:1000px;margin:0 412px 0 max(64px,calc((100vw - 1412px)/2))}
+}
+</style>
+</head>
+<body>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="4"/><path d="M8 3v4M16 3v4M3 10h18"/></symbol><symbol id="i-tasks" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="4"/><path d="M9 4h6v3H9z"/><path d="M9 14l2 2 4-4"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol><symbol id="i-logout" viewBox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"/><path d="M15 8l4 4-4 4M19 12H9"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="3"/><path d="M5 15V7a3 3 0 0 1 3-3h8"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></symbol><symbol id="i-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol><symbol id="i-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol><symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 4L3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4"/></symbol><symbol id="i-partly" viewBox="0 0 24 24"><path d="M12 2v2M4.9 4.9l1.4 1.4M20 12h2M19.1 4.9l-1.4 1.4M15.9 12.6a4 4 0 0 0-5.9-4.1M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6z"/></symbol><symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9z"/></symbol><symbol id="i-rain" viewBox="0 0 24 24"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M16 14v6M8 14v6M12 16v6"/></symbol><symbol id="i-snow" viewBox="0 0 24 24"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M8 15h.01M8 19h.01M12 17h.01M12 21h.01M16 15h.01M16 19h.01"/></symbol><symbol id="i-fog" viewBox="0 0 24 24"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M16 17H7M17 21H9"/></symbol><symbol id="i-storm" viewBox="0 0 24 24"><path d="M6 16.3A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 .5 9"/><path d="M13 12l-3 5h4l-3 5"/></symbol><symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol><symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol></svg>
+<div id="bg"></div>
+<button id="burger" aria-label="Меню"><svg class="i"><use href="#i-menu"/></svg></button>
+<div id="edge"></div>
+<nav id="nav">
+ <div class="brand"><span class="ti"><svg class="i"><use href="#i-clock"/></svg></span>Расписание</div>
+ <button data-v="today"><span class="ti"><svg class="i"><use href="#i-home"/></svg></span>Сегодня</button>
+ <button data-v="week"><span class="ti"><svg class="i"><use href="#i-calendar"/></svg></span>Расписание</button>
+ <button data-v="hw"><span class="ti"><svg class="i"><use href="#i-tasks"/></svg></span>Задания</button>
+ <button data-v="set"><span class="ti"><svg class="i"><use href="#i-settings"/></svg></span>Настройки</button>
+ <div style="flex:1"></div><button data-a="out"><span class="ti"><svg class="i"><use href="#i-logout"/></svg></span>Выйти</button>
+</nav>
+<main class="wrap" id="app"></main>
+<aside id="wx" class="gl" aria-label="Время и погода"></aside>
+<dialog id="dlg"><h1 id="dt"></h1><br><form id="df"></form></dialog>
+<div id="toast"></div>
+<script src="config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script>
+// ===== Ключи Supabase берутся из файла config.js (лежит рядом с index.html) =====
+const SUPABASE_URL=(window.CFG&&window.CFG.url)||'ВАШ_PROJECT_URL';
+const SUPABASE_KEY=(window.CFG&&window.CFG.key)||'ВАШ_ПУБЛИЧНЫЙ_КЛЮЧ';
+// =================================================================================
+const $=s=>document.querySelector(s),$$=s=>document.querySelectorAll(s);
+const DAYS=['Понедельник','Вторник','Среда','Четверг','Пятница','Суббота'],WN={up:'Над чертой',down:'Под чертой',both:'Каждая неделя'};
+const KINDS=['Лекция','Практика','Лабораторная','Другое'],PAL=['#E07A47','#D4A72C','#8FA68F','#C47C8A','#2F6F6D','#59718A','#5B3A62','#6C151E'];
+const PRE=['Привет, вот твоё расписание','Не забывай про пары','Скоро занятие','Пора собираться на пару'];
+const BELLS=[['08:30','10:00'],['10:10','11:40'],['12:10','13:40'],['13:50','15:20'],['15:30','17:00'],['17:10','18:40']];
+const THEMES=[['graphite','Графит','#253745'],['fog','Туман','#9BA8AB'],['bordo','Бордо','#6C151E'],['forest','Лес','#0F3D3A'],['cream','Крем','#F2E9D8'],['teal','Бирюза','#2F6F6D'],['terra','Терракота','#E07A47'],['plum','Слива','#5B3A62']];
+const FONTS=[['system','Системный'],['rostov','Rostov'],['lena','Lena'],['izax','Izax'],['daray','Daray']];
+const ic=n=>`<svg class="i"><use href="#i-${n}"/></svg>`,WD=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
+const wstrip=(b=cur)=>{const m=monday(b);return'<div class="wds gl">'+WD.map((n,i)=>{const d=new Date(m.getFullYear(),m.getMonth(),m.getDate()+i);return`<button class="wd ${ymd(d)===ymd(b)?'on':''}" data-a="day" data-d="${ymd(d)}">${n}</button>`}).join('')+'</div>'};
+const TC={graphite:'#06141B',fog:'#CCD0CF',bordo:'#F5DABF',forest:'#0a2927',cream:'#F2E9D8',teal:'#0b2a29',terra:'#F2E9D8',plum:'#1d1022'};
+let sb=null,me=null,P=null,L=[],HW=[],OV={},mode='in',view='today',wsel='up',cur=new Date(),gv='list',q='',err='',info='',cm=false,DOK=null;
+const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const tr=m=>/Invalid login/i.test(m)?'Неверная почта или пароль':/already registered/i.test(m)?'Эта почта уже зарегистрирована':/at least 6/i.test(m)?'Пароль слишком короткий (минимум 6 символов)':m;
+function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',5000)}
+function notify(title,body){toast(title+': '+body);try{if(window.Notification&&Notification.permission==='granted')new Notification(title,{body})}catch(_){}}
+const pad=n=>String(n).padStart(2,'0'),ymd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()),pd=s=>new Date(s+'T00:00:00');
+const fmt=s=>pd(s).toLocaleDateString('ru-RU',{day:'numeric',month:'long'});
+const monday=d=>{const m=new Date(d);m.setDate(m.getDate()-((m.getDay()+6)%7));return m};
+const hm=d=>pad(d.getHours())+':'+pad(d.getMinutes());
+function wk(d){const day=(d.getDay()+6)%7;return Math.round((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/864e5-day-4)/7)}
+function wkType(d){const a=P.anchor,odd=Math.abs(wk(d)-a.wk)%2;return odd?(a.type==='up'?'down':'up'):a.type}
+const hash=s=>[...String(s)].reduce((a,c)=>(a*31+c.charCodeAt(0))>>>0,7);
+const col=l=>l.color||PAL[hash(l.subject)%8];
+const lessonsFor=(day,t)=>L.filter(l=>l.day===day&&(l.week==='both'||l.week===t)).sort((a,b)=>a.start.localeCompare(b.start));
+function lessonsOn(d){const day=(d.getDay()+6)%7;if(day>5)return[];const s=ymd(d);
+ return lessonsFor(day,wkType(d)).map(l=>{const o=OV[l.id+s];if(!o)return l;
+  if(o.kind==='cancel')return{...l,cancel:1,o,note2:o.note};
+  return{...l,repl:1,o,note2:o.note,start:o.start_time?o.start_time.slice(0,5):l.start,end:o.end_time?o.end_time.slice(0,5):l.end,room:o.room??l.room}}).sort((a,b)=>a.start.localeCompare(b.start))}
+function dayInfo(d){const s=ymd(d),h=P.hol.find(h=>s>=h.from&&s<=h.to);if(h)return'Каникулы: '+h.title;if((P.sem[0]&&s<P.sem[0])||(P.sem[1]&&s>P.sem[1]))return'Вне семестра';return''}
+const fromRow=r=>({id:r.id,subject:r.subject,day:r.day_of_week,week:r.week_type,start:String(r.start_time).slice(0,5),end:String(r.end_time).slice(0,5),room:r.room||'',teacher:r.teacher||'',notes:r.notes||'',kind:r.kind||'',color:r.color||''});
+const toRow=o=>({subject:o.subject,day_of_week:o.day,week_type:o.week,start_time:o.start,end_time:o.end,room:o.room||null,teacher:o.teacher||null,notes:o.notes||null,kind:o.kind||null,color:o.color||null});
+function applyUI(th,f){const r=document.documentElement;r.dataset.th=th||'graphite';r.dataset.f=f||'system';const tc=document.querySelector('meta[name=theme-color]');if(tc)tc.content=TC[r.dataset.th]||'#06141B';try{localStorage.setItem('ui',JSON.stringify({th:r.dataset.th,f:r.dataset.f}))}catch(e){}}
+try{const u=JSON.parse(localStorage.getItem('ui')||'{}');applyUI(u.th,u.f)}catch(e){}
+async function load(){
+ const [p,l,h,o]=await Promise.all([sb.from('profiles').select('*').eq('id',me.id).maybeSingle(),sb.from('lessons').select('*'),sb.from('homework').select('*'),sb.from('overrides').select('*')]);
+ const e=p.error||l.error||h.error||o.error;if(e)toast('Ошибка загрузки: '+e.message+'. Выполнен ли migration_v2.sql?');
+ const r=p.data||{},date=r.anchor_week_start||ymd(monday(new Date()));
+ P={anchor:{wk:wk(pd(date)),type:r.anchor_week_type||'up',date},remind:r.remind_minutes||10,bells:r.bells||BELLS,sem:[r.semester_start||'',r.semester_end||''],hol:r.holidays||[],nt:r.notify_text||PRE[1],theme:r.theme||'graphite',font:r.font||'system'};
+ L=(l.data||[]).map(fromRow);HW=h.data||[];OV={};(o.data||[]).forEach(x=>OV[x.lesson_id+x.on_date]=x);
+ wsel=wkType(new Date());applyUI(P.theme,P.font);
+}
+async function saveProfile(){
+ const r=await sb.from('profiles').upsert({id:me.id,anchor_week_start:P.anchor.date,anchor_week_type:P.anchor.type,remind_minutes:P.remind,bells:P.bells,semester_start:P.sem[0]||null,semester_end:P.sem[1]||null,holidays:P.hol,notify_text:P.nt,theme:P.theme,font:P.font});
+ if(r.error)toast('Не удалось сохранить: '+r.error.message);
+}
+const fld=(t,h)=>`<div><label>${t}</label>${h}</div>`;
+function dlg(title,body,ok){$('#dt').textContent=title;$('#df').innerHTML=body+'<div class="row"><button type="button" class="btn g" id="cx">Отмена</button><button class="btn">Сохранить</button></div>';DOK=ok;$('#dlg').showModal();$('#cx').onclick=()=>$('#dlg').close()}
+function card(l,m,now){
+ const st=l.cancel?'opacity:.55;text-decoration:line-through':'';
+ const acts=m==='edit'?`<button class="ib" data-a="edit" data-id="${l.id}" aria-label="Изменить">${ic('edit')}</button><button class="ib" data-a="copy" data-id="${l.id}" aria-label="Копировать">${ic('copy')}</button><button class="ib" data-a="del" data-id="${l.id}" aria-label="Удалить">${ic('trash')}</button>`:`<button class="ib" data-a="ovr" data-id="${l.id}" aria-label="Отменить или заменить">${ic('swap')}</button>`;
+ return`<div class="card gl l${now?' now':''}" style="--c:${col(l)}"><div class="t" style="${st}">${l.start}<small>${l.end}</small></div><div class="m"><b style="${st}">${esc(l.subject)}</b><span>${[l.kind,l.teacher,l.room&&'ауд. '+l.room].filter(Boolean).map(esc).join(' · ')||'Аудитория не указана'}</span>${l.notes?`<span>${esc(l.notes)}</span>`:''}${l.cancel?'<span class="tag x">Отменено</span>':l.repl?'<span class="tag">Замена</span>':''}${m==='edit'&&l.week!=='both'?`<span class="tag">${WN[l.week]}</span>`:''}${l.note2?`<span>${esc(l.note2)}</span>`:''}</div>${acts}</div>`}
+function wkHTML(){
+ const ms=l=>!q||(l.subject+' '+l.teacher).toLowerCase().includes(q);let h='';
+ if(gv==='grid')return'<div class="gw"><div class="grid">'+DAYS.map((n,i)=>`<div><div class="dh"><h2>${n}</h2><button class="ib" data-a="add" data-d="${i}" aria-label="Добавить">${ic('plus')}</button></div>${lessonsFor(i,wsel).filter(ms).map(l=>card(l,'edit')).join('')||'<div class="empty" style="padding:8px">—</div>'}</div>`).join('')+'</div></div>';
+ DAYS.forEach((n,i)=>{const ls=lessonsFor(i,wsel).filter(ms);h+=`<div class="dh"><h2>${n}</h2><button class="btn g" data-a="add" data-d="${i}">${ic('plus')}Добавить</button></div>`+(ls.length?ls.map(l=>card(l,'edit')).join(''):'<div class="empty" style="padding:8px">Нет занятий</div>')});return h}
+function hwHTML(){
+ const t=ymd(new Date()),op=HW.filter(h=>!h.done).sort((a,b)=>a.due_date.localeCompare(b.due_date)),dn=HW.filter(h=>h.done);
+ const row=h=>{const ls=L.find(l=>l.id===h.lesson_id),od=!h.done&&h.due_date<t;return`<div class="card gl l"><input type="checkbox" class="ck" data-a="hwt" data-id="${h.id}" ${h.done?'checked':''}><div class="m"><b style="${h.done?'text-decoration:line-through;opacity:.6':''}">${esc(h.title)}</b><span class="${od?'od':''}">${ls?esc(ls.subject)+' · ':''}до ${fmt(h.due_date)}${od?' · просрочено':''}</span></div><button class="ib" data-a="hwe" data-id="${h.id}" aria-label="Изменить">${ic('edit')}</button><button class="ib" data-a="hwd" data-id="${h.id}" aria-label="Удалить">${ic('trash')}</button></div>`};
+ return`<div class="top"><h1>Задания</h1><button class="btn" data-a="hwa">${ic('plus')}Задание</button></div>`+(op.length?op.map(row).join(''):'<div class="empty">Невыполненных заданий нет</div>')+(dn.length?'<h2>Выполнено</h2>'+dn.map(row).join(''):'')}
+function render(){
+ const A=$('#app');document.body.classList.toggle('anon',!me);if(!sb)return;
+ $$('#nav [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===view));
+ if(!me){A.innerHTML=`<div class="auth gl"><h1>Моё расписание</h1><p class="n">Войдите или создайте аккаунт, чтобы расписание было доступно на всех ваших устройствах.</p>
+ <div class="seg"><button class="btn ${mode==='in'?'':'g'}" data-a="mode" data-m="in">Вход</button><button class="btn ${mode==='up'?'':'g'}" data-a="mode" data-m="up">Регистрация</button></div>
+ <form id="af"><label>Email</label><input id="u" type="email" autocomplete="email" required maxlength="100"><label>Пароль</label><input id="p" type="password" autocomplete="${mode==='in'?'current-password':'new-password'}" required minlength="6">
+ ${mode==='up'?'<label>Повторите пароль</label><input id="p2" type="password" autocomplete="new-password" required>':''}
+ <div class="err">${esc(err)}</div>${info?`<p class="n">${esc(info)}</p>`:''}<button class="btn" style="width:100%">${mode==='in'?'Войти':'Создать аккаунт'}</button></form></div>`;return}
+ if(!P){A.innerHTML='<div class="empty">Загрузка…</div>';return}
+ const now=new Date();let h='';
+ if(view==='today'){
+  const t=lessonsOn(cur),inf=dayInfo(cur),isT=ymd(cur)===ymd(now),tm=hm(now),nx=isT?t.findIndex(l=>!l.cancel&&l.end>tm):-1,day=(cur.getDay()+6)%7;
+  h=`<div class="top"><h1>${esc(cur.toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'}))}</h1><span class="badge">${WN[wkType(cur)]}</span></div>
+  <div class="dn"><button class="btn g sq" data-a="dd" data-n="-1" aria-label="Предыдущий день">${ic('left')}</button><button class="btn g" data-a="tod">Сегодня</button><input type="date" data-s="date" value="${ymd(cur)}" style="margin:0;flex:2"><button class="btn g sq" data-a="dd" data-n="1" aria-label="Следующий день">${ic('right')}</button></div>`+
+  wstrip()+(inf?`<div class="empty gl card">${esc(inf)}</div>`:'')+(t.length?t.map((l,i)=>card(l,'day',i===nx)).join(''):`<div class="empty">${day<6?'Занятий нет':'Выходной'}</div>`);
+ }else if(view==='week'){
+  h=`<div class="seg2"><div class="sg gl"><button class="btn ${wsel==='up'?'':'g'}" data-a="wsel" data-w="up">Над чертой</button><button class="btn ${wsel==='down'?'':'g'}" data-a="wsel" data-w="down">Под чертой</button></div><div class="sg gl"><button class="btn ${gv==='list'?'':'g'}" data-a="gv" data-g="list">Список</button><button class="btn ${gv==='grid'?'':'g'}" data-a="gv" data-g="grid">Сетка</button></div></div>
+  <input id="q" placeholder="Поиск по предмету или преподавателю" value="${esc(q)}"><div id="wk">${wkHTML()}</div>`;
+ }else if(view==='hw')h=hwHTML();
+ else{
+  const np=window.Notification?Notification.permission:'unsupported',cust=cm||!PRE.includes(P.nt),ct=wkType(now);
+  h=`<h1>Настройки</h1><div class="card gl"><h2 style="margin-top:0">Оформление</h2><div class="seg">${THEMES.map(([k,n,c])=>`<button class="btn ${P.theme===k?'':'g'}" data-a="th" data-v="${k}"><i class="dot" style="background:${c}"></i>${n}</button>`).join('')}</div>
+  <div class="seg">${FONTS.map(([k,n])=>`<button class="btn ${P.font===k?'':'g'}" data-a="ft" data-v="${k}" style="font-family:${k==='system'?'system-ui':n}">${n}</button>`).join('')}</div></div>
+  <div class="card gl"><h2 style="margin-top:0">Недели и напоминания</h2><label>Какая неделя идёт сейчас?</label><select data-s="type"><option value="up" ${ct==='up'?'selected':''}>Над чертой</option><option value="down" ${ct==='down'?'selected':''}>Под чертой</option></select>
+  <label>Напоминать за</label><select data-s="remind">${[5,10,15,30,60].map(m=>`<option value="${m}" ${P.remind===m?'selected':''}>${m} мин до начала</option>`).join('')}</select>
+  <label>Текст сообщения</label><select data-s="ntext">${PRE.map(p=>`<option ${!cust&&P.nt===p?'selected':''}>${p}</option>`).join('')}<option value="__c" ${cust?'selected':''}>Свой текст…</option></select>
+  ${cust?`<input data-s="ncust" maxlength="80" placeholder="Например: Пора на пару!" value="${esc(P.nt)}">`:''}
+  <div class="row"><button class="btn g" data-a="notif">${np==='granted'?ic('check')+'Уведомления включены':ic('bell')+'Включить уведомления'}</button><button class="btn g" data-a="test">Проверить сообщение</button></div>
+  <p class="n">Напоминания приходят, пока сайт открыт во вкладке или приложении.</p></div>
+  <div class="card gl"><h2 style="margin-top:0">Погода (виджет на компьютере)</h2><label>Город</label><input id="cityin" placeholder="${CITY?esc(CITY.name):'Например: Москва'}"><div class="row"><button class="btn g" data-a="city">Найти город</button><button class="btn g" data-a="geo">По геопозиции</button></div><p class="n">Текущий город: ${CITY?esc(CITY.name):'не выбран'}. Хранится на этом устройстве. Виджет виден на компьютере при ширине окна от 1100 px.</p></div>
+  <div class="card gl"><h2 style="margin-top:0">Звонки (сетка пар)</h2>${P.bells.map((b,i)=>`<div class="bl"><b>${i+1}</b><input type="time" data-s="bell" data-i="${i}" data-k="0" value="${b[0]}"><input type="time" data-s="bell" data-i="${i}" data-k="1" value="${b[1]}"><button class="ib" data-a="bd" data-i="${i}" aria-label="Удалить">${ic('trash')}</button></div>`).join('')}<button class="btn g" data-a="ba" style="margin-top:8px">${ic('plus')}Пара</button></div>
+  <div class="card gl"><h2 style="margin-top:0">Семестр и каникулы</h2><div class="row"><div><label>Начало семестра</label><input type="date" data-s="sem" data-i="0" value="${P.sem[0]}"></div><div><label>Конец семестра</label><input type="date" data-s="sem" data-i="1" value="${P.sem[1]}"></div></div>
+  ${P.hol.map((x,i)=>`<div class="dh"><span>${esc(x.title)}: ${fmt(x.from)} — ${fmt(x.to)}</span><button class="ib" data-a="hd" data-i="${i}" aria-label="Удалить">${ic('trash')}</button></div>`).join('')}<button class="btn g" data-a="ha" style="margin-top:8px">${ic('plus')}Каникулы</button></div>
+  <p class="n">Вы вошли как ${esc(me.email||'')}</p>`;
+ }
+ A.innerHTML=h;
+}
+function openLesson(l){
+ l=l||{};const subs=[...new Set(L.map(x=>x.subject))];
+ dlg(l.id?'Изменить занятие':'Новое занятие',
+  fld('Предмет',`<input name="s" required maxlength="80" list="sl" value="${esc(l.subject||'')}"><datalist id="sl">${subs.map(s=>`<option value="${esc(s)}">`).join('')}</datalist>`)+
+  `<div class="row">`+fld('День',`<select name="d">${DAYS.map((n,i)=>`<option value="${i}" ${(l.day??0)===i?'selected':''}>${n}</option>`).join('')}</select>`)+fld('Неделя',`<select name="w">${['both','up','down'].map(k=>`<option value="${k}" ${(l.week||wsel)===k?'selected':''}>${WN[k]}</option>`).join('')}</select>`)+`</div>`+
+  fld('Пара из сетки',`<select name="pair"><option value="">— вручную —</option>${P.bells.map((b,i)=>`<option value="${i}">${i+1} пара · ${b[0]}–${b[1]}</option>`).join('')}</select>`)+
+  `<div class="row">`+fld('Начало',`<input name="a" type="time" required value="${l.start||P.bells[0][0]}">`)+fld('Конец',`<input name="b" type="time" required value="${l.end||P.bells[0][1]}">`)+`</div>`+
+  `<div class="row">`+fld('Аудитория',`<input name="r" maxlength="30" value="${esc(l.room||'')}">`)+fld('Тип',`<select name="k"><option value="">—</option>${KINDS.map(k=>`<option ${l.kind===k?'selected':''}>${k}</option>`).join('')}</select>`)+`</div>`+
+  fld('Преподаватель',`<input name="t" maxlength="80" value="${esc(l.teacher||'')}">`)+fld('Цвет предмета',`<div class="sw">${PAL.map(c=>`<button type="button" data-a="pc" data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join('')}</div><input name="c" type="color" value="${l.id||l.subject?col(l):PAL[5]}">`)+fld('Заметка',`<textarea name="n" rows="2" maxlength="200">${esc(l.notes||'')}</textarea>`),
+  async v=>{
+   const o={subject:v.get('s').trim(),day:+v.get('d'),week:v.get('w'),start:v.get('a'),end:v.get('b'),room:v.get('r').trim(),kind:v.get('k'),teacher:v.get('t').trim(),color:v.get('c'),notes:v.get('n').trim()};
+   if(o.end<=o.start){toast('Конец занятия должен быть позже начала');return false}
+   const r=l.id?await sb.from('lessons').update(toRow(o)).eq('id',l.id).select().single():await sb.from('lessons').insert(toRow(o)).select().single();
+   if(r.error){toast('Ошибка: '+r.error.message);return false}
+   const n=fromRow(r.data);L=l.id?L.map(x=>x.id===l.id?n:x):[...L,n];
+   if(L.some(x=>x.subject===o.subject&&x.color!==o.color)){const u=await sb.from('lessons').update({color:o.color}).eq('subject',o.subject);if(!u.error)L=L.map(x=>x.subject===o.subject?{...x,color:o.color}:x)}
+   render();return true});
+}
+function openOv(l){
+ const s=ymd(cur),b=L.find(x=>x.id===l.id),o=OV[b.id+s]||{};
+ dlg(fmt(s)+': '+b.subject,
+  fld('Что сделать',`<select name="k"><option value="cancel" ${o.kind==='cancel'?'selected':''}>Отменить занятие</option><option value="replace" ${o.kind==='replace'?'selected':''}>Заменить время или аудиторию</option></select>`)+
+  `<div class="row">`+fld('Начало',`<input name="a" type="time" value="${(o.start_time||b.start).slice(0,5)}">`)+fld('Конец',`<input name="b" type="time" value="${(o.end_time||b.end).slice(0,5)}">`)+`</div>`+
+  fld('Аудитория',`<input name="r" maxlength="30" value="${esc(o.room??b.room)}">`)+fld('Заметка',`<input name="n" maxlength="100" value="${esc(o.note||'')}">`)+(o.id?'<button type="button" class="btn d" id="rm">Вернуть как было</button>':''),
+  async v=>{
+   if(v.get('k')==='replace'&&v.get('b')<=v.get('a')){toast('Конец занятия должен быть позже начала');return false}
+   const r=await sb.from('overrides').upsert({lesson_id:b.id,on_date:s,kind:v.get('k'),start_time:v.get('a')||null,end_time:v.get('b')||null,room:v.get('r')||null,note:v.get('n')||null},{onConflict:'lesson_id,on_date'}).select().single();
+   if(r.error){toast('Ошибка: '+r.error.message);return false}OV[b.id+s]=r.data;render();return true});
+ if(o.id)$('#rm').onclick=async()=>{await sb.from('overrides').delete().eq('id',o.id);delete OV[b.id+s];$('#dlg').close();render()};
+}
+function openHW(h){
+ h=h||{};
+ dlg(h.id?'Изменить задание':'Новое задание',
+  fld('Что сделать',`<input name="t" required maxlength="120" value="${esc(h.title||'')}">`)+
+  fld('Занятие',`<select name="l"><option value="">— не привязано —</option>${L.map(l=>`<option value="${l.id}" ${h.lesson_id===l.id?'selected':''}>${esc(l.subject)} (${DAYS[l.day].slice(0,2)}, ${l.start})</option>`).join('')}</select>`)+
+  fld('Срок',`<input name="d" type="date" required value="${h.due_date||ymd(new Date())}">`),
+  async v=>{
+   const o={title:v.get('t').trim(),lesson_id:v.get('l')||null,due_date:v.get('d')};
+   const r=h.id?await sb.from('homework').update(o).eq('id',h.id).select().single():await sb.from('homework').insert(o).select().single();
+   if(r.error){toast('Ошибка: '+r.error.message);return false}HW=h.id?HW.map(x=>x.id===h.id?r.data:x):[...HW,r.data];render();return true});
+}
+$('#df').addEventListener('submit',async e=>{e.preventDefault();if(await DOK(new FormData(e.target)))$('#dlg').close()});
+document.addEventListener('click',async e=>{
+ const v=e.target.closest('#nav [data-v]');
+ if(v){view=v.dataset.v;$('#nav').classList.remove('open');render();return}
+ if(e.target.closest('#burger')){$('#nav').classList.toggle('open');return}
+ if(!e.target.closest('#nav'))$('#nav').classList.remove('open');
+ const t=e.target.closest('[data-a]');if(!t)return;const a=t.dataset.a,id=t.dataset.id,i=+t.dataset.i;
+ if(a==='mode'){mode=t.dataset.m;err='';info='';render()}
+ else if(a==='wsel'){wsel=t.dataset.w;render()}
+ else if(a==='gv'){gv=t.dataset.g;render()}
+ else if(a==='dd'){cur=new Date(cur.getFullYear(),cur.getMonth(),cur.getDate()+ +t.dataset.n);render()}
+ else if(a==='tod'){cur=new Date();render()}
+ else if(a==='add')openLesson({day:+t.dataset.d});
+ else if(a==='edit')openLesson(L.find(x=>x.id===id));
+ else if(a==='copy')openLesson({...L.find(x=>x.id===id),id:null});
+ else if(a==='ovr')openOv(lessonsOn(cur).find(x=>x.id===id));
+ else if(a==='del'){if(!confirm('Удалить занятие?'))return;const r=await sb.from('lessons').delete().eq('id',id);if(r.error)return toast('Ошибка: '+r.error.message);L=L.filter(x=>x.id!==id);HW=HW.map(h=>h.lesson_id===id?{...h,lesson_id:null}:h);render()}
+ else if(a==='hwa')openHW();
+ else if(a==='hwe')openHW(HW.find(x=>x.id===id));
+ else if(a==='hwd'){if(!confirm('Удалить задание?'))return;const r=await sb.from('homework').delete().eq('id',id);if(r.error)return toast('Ошибка: '+r.error.message);HW=HW.filter(x=>x.id!==id);render()}
+ else if(a==='hwt'){const h=HW.find(x=>x.id===id),r=await sb.from('homework').update({done:!h.done}).eq('id',id).select().single();if(r.error)toast('Ошибка: '+r.error.message);else HW=HW.map(x=>x.id===id?r.data:x);render()}
+ else if(a==='th'){P.theme=t.dataset.v;applyUI(P.theme,P.font);render();saveProfile()}
+ else if(a==='ft'){P.font=t.dataset.v;applyUI(P.theme,P.font);render();saveProfile()}
+ else if(a==='bd'){if(P.bells.length>1){P.bells.splice(i,1);render();saveProfile()}}
+ else if(a==='ba'){const b=P.bells[P.bells.length-1]||['08:30','10:00'];P.bells.push([b[1],b[1]]);render();saveProfile()}
+ else if(a==='hd'){P.hol.splice(i,1);render();saveProfile()}
+ else if(a==='ha')dlg('Каникулы',fld('Название',`<input name="t" required maxlength="40" placeholder="Зимние каникулы">`)+`<div class="row">`+fld('С',`<input name="f" type="date" required>`)+fld('По',`<input name="e" type="date" required>`)+`</div>`,async v=>{if(v.get('e')<v.get('f')){toast('Дата окончания раньше начала');return false}P.hol.push({title:v.get('t').trim(),from:v.get('f'),to:v.get('e')});render();saveProfile();return true});
+ else if(a==='city')findCity();
+ else if(a==='geo')geoCity();
+ else if(a==='goset'){view='set';render()}
+ else if(a==='pc')$('#df').c.value=t.dataset.c;
+ else if(a==='day'){cur=pd(t.dataset.d);view='today';render()}
+ else if(a==='notif'){if(!window.Notification)return toast('Браузер не поддерживает уведомления. Напоминания будут показываться на странице.');await Notification.requestPermission();render()}
+ else if(a==='test')notify(P.nt,'Пример: Математика в 08:30, ауд. 214');
+ else if(a==='out'){await sb.auth.signOut();me=null;P=null;L=[];HW=[];OV={};view='today';err='';info='';$('#nav').classList.remove('open');render()}
+});
+document.addEventListener('input',e=>{if(e.target.id==='q'){q=e.target.value.trim().toLowerCase();$('#wk').innerHTML=wkHTML()}});
+document.addEventListener('change',async e=>{
+ const el=e.target,s=el.dataset.s;
+ if(el.name==='pair'&&el.value!==''){const b=P.bells[+el.value];el.form.a.value=b[0];el.form.b.value=b[1]}
+ if(s==='date'&&el.value){cur=pd(el.value);render()}
+ else if(s==='type'){P.anchor={wk:wk(new Date()),type:el.value,date:ymd(monday(new Date()))};wsel=el.value;render();saveProfile()}
+ else if(s==='remind'){P.remind=+el.value;saveProfile()}
+ else if(s==='ntext'){if(el.value==='__c'){cm=true;render()}else{cm=false;P.nt=el.value;render();saveProfile()}}
+ else if(s==='ncust'){P.nt=el.value.trim()||PRE[1];saveProfile()}
+ else if(s==='bell'){P.bells[+el.dataset.i][+el.dataset.k]=el.value;saveProfile()}
+ else if(s==='sem'){P.sem[+el.dataset.i]=el.value;saveProfile()}
+});
+document.addEventListener('submit',async e=>{
+ if(e.target.id!=='af')return;e.preventDefault();
+ const em=$('#u').value.trim(),p=$('#p').value;err='';info='';
+ if(mode==='up'&&p!==$('#p2').value){err='Пароли не совпадают';render();$('#u').value=em;return}
+ e.target.querySelector('button.btn').disabled=true;
+ const r=mode==='up'?await sb.auth.signUp({email:em,password:p}):await sb.auth.signInWithPassword({email:em,password:p});
+ if(r.error){err=tr(r.error.message);render();$('#u').value=em;return}
+ if(!r.data.session){info='Аккаунт создан. Подтвердите почту по ссылке из письма, затем войдите.';mode='in';render();return}
+ me=r.data.user;view='today';P=null;render();await load();render();
+});
+let CITY=null,WX=null;try{CITY=JSON.parse(localStorage.getItem('city')||'null')}catch(e){}
+const WCODE=c=>c===0?['sun','Ясно']:c<=2?['partly','Малооблачно']:c===3?['cloud','Облачно']:c<=48?['fog','Туман']:c<=67?['rain','Дождь']:c<=77?['snow','Снег']:c<=82?['rain','Ливень']:c<=86?['snow','Снегопад']:['storm','Гроза'];
+async function loadWx(){
+ if(!CITY)return renderWx();
+ try{const r=await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${CITY.lat}&longitude=${CITY.lon}&current=temperature_2m,apparent_temperature,weather_code&daily=temperature_2m_max,temperature_2m_min&forecast_days=1&timezone=auto`),j=await r.json();
+  WX={t:Math.round(j.current.temperature_2m),f:Math.round(j.current.apparent_temperature),c:j.current.weather_code,max:Math.round(j.daily.temperature_2m_max[0]),min:Math.round(j.daily.temperature_2m_min[0])}}catch(e){WX=null}
+ renderWx();
+}
+function renderWx(){
+ const e=$('#wx');if(!e)return;const n=new Date(),w=WX?WCODE(WX.c):null;
+ e.innerHTML=`<div class="wxh"><span>${esc(n.toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'}))}</span><span>${CITY?esc(CITY.name):''}</span></div>
+ <div class="wxm"><div class="wxt">${hm(n)}</div>${WX?`<div class="wxw">${ic(w[0])}<b>${WX.t}°</b></div>`:''}</div>
+ ${WX?`<div class="wxs"><span>${w[1]}, ощущается ${WX.f}°</span><span class="pl">${ic('up')}${WX.max}°</span><span class="pl">${ic('down')}${WX.min}°</span></div>`:`<div class="wxs"><span>${CITY?'Погода недоступна':'Город не выбран'}</span><button class="btn g" data-a="goset">Настроить</button></div>`}
+ ${wstrip(n)}`;
+}
+function setCity(c){CITY=c;try{localStorage.setItem('city',JSON.stringify(c))}catch(e){}WX=null;loadWx();render();toast('Город: '+c.name)}
+async function findCity(){const v=(($('#cityin')||{}).value||'').trim();if(!v)return toast('Введите название города');
+ try{const r=await fetch('https://geocoding-api.open-meteo.com/v1/search?count=1&language=ru&name='+encodeURIComponent(v)),j=await r.json(),x=(j.results||[])[0];if(!x)return toast('Город не найден');setCity({name:x.name,lat:x.latitude,lon:x.longitude})}catch(e){toast('Не удалось найти город')}}
+function geoCity(){if(!navigator.geolocation)return toast('Геолокация недоступна');navigator.geolocation.getCurrentPosition(p=>setCity({name:'Моё местоположение',lat:p.coords.latitude,lon:p.coords.longitude}),()=>toast('Нет доступа к геопозиции'))}
+setInterval(renderWx,10000);setInterval(loadWx,1800000);
+const fired=new Set();
+setInterval(()=>{
+ if(!me||!P)return;const n=new Date();if(dayInfo(n))return;
+ lessonsOn(n).forEach(l=>{
+  if(l.cancel)return;const [h,m]=l.start.split(':').map(Number),diff=(h*60+m)-(n.getHours()*60+n.getMinutes()),k=n.toDateString()+l.id;
+  if(diff>0&&diff<=P.remind&&!fired.has(k)){fired.add(k);notify(P.nt,`${l.subject} в ${l.start}${l.room?', ауд. '+l.room:''}`)}
+ });
+},20000);
+(async()=>{
+ const A=$('#app');
+ if(!window.supabase||SUPABASE_URL.startsWith('ВАШ')||SUPABASE_KEY.startsWith('ВАШ')){document.body.classList.add('anon');A.innerHTML='<div class="auth gl"><h1>Нужна настройка</h1><p class="n">Создайте рядом с index.html файл config.js и впишите в него Project URL и публичный ключ Supabase.</p></div>';return}
+ sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);renderWx();loadWx();
+ A.innerHTML='<div class="empty">Загрузка…</div>';
+ try{const {data}=await sb.auth.getSession();if(data.session){me=data.session.user;render();await load()}}catch(_){}
+ render();
+})();
+</script>
+</body>
+</html>

@@ -6,12 +6,22 @@
 <meta name="theme-color" content="#06141B">
 <title>Моё расписание</title>
 <style>
-@font-face{font-family:Rostov;src:url(fonts/rostov.ttf) format("truetype");font-display:swap}
-@font-face{font-family:Lena;src:url(fonts/lena.ttf) format("truetype");font-display:swap}
-@font-face{font-family:Izax;src:url(fonts/izax.otf) format("opentype");font-display:swap}
-@font-face{font-family:Daray;src:url(fonts/daray.otf) format("opentype");font-display:swap}
+@font-face{font-family:PressStart;src:url(fonts/pressstart.ttf) format("truetype");font-display:swap}
+@font-face{font-family:Lobster;src:url(fonts/lobster.ttf) format("truetype");font-display:swap}
+@font-face{font-family:BlackOps;src:url(fonts/blackops.ttf) format("truetype");font-display:swap}
+@font-face{font-family:Bebas;src:url(fonts/bebas.ttf) format("truetype");font-display:swap}
+@font-face{font-family:ScienceGothic;src:url(fonts/sciencegothic.ttf) format("truetype");font-weight:400;font-display:swap}
+@font-face{font-family:ScienceGothic;src:url(fonts/sciencegothic-bold.ttf) format("truetype");font-weight:700;font-display:swap}
+@font-face{font-family:Dela;src:url(fonts/dela.ttf) format("truetype");font-display:swap}
+html[data-f=pressstart]{--ff:PressStart,system-ui,sans-serif}
+html[data-f=lobster]{--ff:Lobster,system-ui,sans-serif}
+html[data-f=blackops]{--ff:BlackOps,system-ui,sans-serif}
+html[data-f=bebas]{--ff:Bebas,system-ui,sans-serif}
+html[data-f=sciencegothic]{--ff:ScienceGothic,system-ui,sans-serif}
+html[data-f=dela]{--ff:Dela,system-ui,sans-serif}
+html:not([data-f=system]):not([data-f=sciencegothic]){font-synthesis:none}
+html[data-f=pressstart] body{font-size:12px}html[data-f=dela] body{font-size:14px}html[data-f=blackops] body{font-size:15px}html[data-f=bebas] body{font-size:18px}
 :root{--ff:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
-html[data-f=rostov]{--ff:Rostov,system-ui,sans-serif}html[data-f=lena]{--ff:Lena,system-ui,sans-serif}html[data-f=izax]{--ff:Izax,system-ui,sans-serif}html[data-f=daray]{--ff:Daray,system-ui,sans-serif}
 html[data-th=graphite]{--b1:#06141B;--b2:#11212D;--k1:#4A5C6A;--k2:#253745;--tx:#CCD0CF;--mu:#9BA8AB;--ac:#9BA8AB;--on:#06141B;--gl:rgba(37,55,69,.5);--gb:rgba(204,208,207,.16);color-scheme:dark}
 html[data-th=fog]{--b1:#CCD0CF;--b2:#9BA8AB;--k1:#fff;--k2:#4A5C6A;--tx:#06141B;--mu:#3d4d59;--ac:#253745;--on:#CCD0CF;--gl:rgba(255,255,255,.42);--gb:rgba(255,255,255,.65)}
 html[data-th=bordo]{--b1:#F5DABF;--b2:#e9bf9c;--k1:#6C151E;--k2:#0F3D3A;--tx:#2b0a0e;--mu:#7a4a4e;--ac:#6C151E;--on:#F5DABF;--gl:rgba(255,255,255,.4);--gb:rgba(255,255,255,.65)}
@@ -148,11 +158,28 @@ h1::first-letter{text-transform:uppercase}
 .ck2{flex:none;width:30px;height:30px;border-radius:50%;border:1.5px solid var(--gb);background:rgba(255,255,255,.12);color:transparent;display:inline-flex;align-items:center;justify-content:center;padding:0;cursor:pointer;box-shadow:inset 1px 1px 1px rgba(255,255,255,.35)}
 .ck2 .i{width:16px;height:16px;stroke-width:2.4}.ck2.on{background:var(--ac);color:var(--on);border-color:transparent}
 input[type=date],input[type=time]{min-height:46px}
+
+/* Язык, масштаб */
+.lg{display:inline-flex;gap:2px;padding:3px;border-radius:999px;border:1px solid var(--gb);background:rgba(255,255,255,.1)}
+.lg button{border:0;background:none;color:var(--tx);padding:4px 10px;border-radius:999px;font-weight:700;cursor:pointer;font-size:.8rem}
+.lg button.on{background:var(--ac);color:var(--on)}
+.auth .lg{float:right}
+#nav .lg button{display:block;padding:4px 10px;gap:0}#nav .lg button.on{background:var(--ac);color:var(--on);box-shadow:none}
+.btn:disabled{opacity:.38;cursor:not-allowed;filter:grayscale(.6)}
+.rg{-webkit-appearance:none;appearance:none;width:100%;height:36px;background:transparent;margin:4px 0 0;padding:0;border:0;cursor:pointer}
+.rg::-webkit-slider-runnable-track{height:10px;border-radius:999px;background:rgba(127,127,127,.35);box-shadow:inset 1px 1px 2px rgba(0,0,0,.2)}
+.rg::-moz-range-track{height:10px;border-radius:999px;background:rgba(127,127,127,.35)}
+.rg::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;margin-top:-9px;border-radius:50%;background:#fff;border:1px solid var(--gb);box-shadow:0 3px 10px rgba(0,0,0,.3),inset 0 0 0 5px var(--ac)}
+.rg::-moz-range-thumb{width:28px;height:28px;border-radius:50%;background:#fff;border:5px solid var(--ac);box-shadow:0 3px 10px rgba(0,0,0,.3);box-sizing:border-box}
+.tk{display:flex;justify-content:space-between;padding:0 14px;margin:2px 0 22px}
+.tk i{position:relative;width:2px;height:8px;background:var(--mu);border-radius:2px;opacity:.6}.tk i.m{height:12px;opacity:1}
+.tk i[data-l]::after{content:attr(data-l);position:absolute;top:15px;left:50%;transform:translateX(-50%);font-size:.7rem;font-style:normal;color:var(--mu)}
 </style>
 </head>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><symbol id="i-home" viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></symbol><symbol id="i-calendar" viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="16" rx="4"/><path d="M8 3v4M16 3v4M3 10h18"/></symbol><symbol id="i-tasks" viewBox="0 0 24 24"><rect x="5" y="4" width="14" height="17" rx="4"/><path d="M9 4h6v3H9z"/><path d="M9 14l2 2 4-4"/></symbol><symbol id="i-settings" viewBox="0 0 24 24"><path d="M4 7h9M17 7h3M4 17h3M11 17h9"/><circle cx="15" cy="7" r="2"/><circle cx="9" cy="17" r="2"/></symbol><symbol id="i-logout" viewBox="0 0 24 24"><path d="M10 4H6a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h4"/><path d="M15 8l4 4-4 4M19 12H9"/></symbol><symbol id="i-plus" viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></symbol><symbol id="i-edit" viewBox="0 0 24 24"><path d="M4 20h4L19 9l-4-4L4 16z"/><path d="M13.5 6.5l4 4"/></symbol><symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="3"/><path d="M5 15V7a3 3 0 0 1 3-3h8"/></symbol><symbol id="i-trash" viewBox="0 0 24 24"><path d="M4 7h16M10 11v6M14 11v6M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12M9 7V4h6v3"/></symbol><symbol id="i-left" viewBox="0 0 24 24"><path d="M15 6l-6 6 6 6"/></symbol><symbol id="i-right" viewBox="0 0 24 24"><path d="M9 6l6 6-6 6"/></symbol><symbol id="i-swap" viewBox="0 0 24 24"><path d="M7 4L3 8l4 4M3 8h14M17 20l4-4-4-4M21 16H7"/></symbol><symbol id="i-bell" viewBox="0 0 24 24"><path d="M6 16v-5a6 6 0 0 1 12 0v5l2 2H4z"/><path d="M10 21h4"/></symbol><symbol id="i-check" viewBox="0 0 24 24"><path d="M5 12l5 5 9-10"/></symbol><symbol id="i-menu" viewBox="0 0 24 24"><path d="M4 7h16M4 12h16M4 17h16"/></symbol><symbol id="i-clock" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></symbol><symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2M5.6 5.6L7 7M17 17l1.4 1.4M18.4 5.6L17 7M7 17l-1.4 1.4"/></symbol><symbol id="i-partly" viewBox="0 0 24 24"><path d="M12 2v2M4.9 4.9l1.4 1.4M20 12h2M19.1 4.9l-1.4 1.4M15.9 12.6a4 4 0 0 0-5.9-4.1M13 22H7a5 5 0 1 1 4.9-6H13a3 3 0 0 1 0 6z"/></symbol><symbol id="i-cloud" viewBox="0 0 24 24"><path d="M17.5 19H9a7 7 0 1 1 6.7-9h1.8a4.5 4.5 0 1 1 0 9z"/></symbol><symbol id="i-rain" viewBox="0 0 24 24"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M16 14v6M8 14v6M12 16v6"/></symbol><symbol id="i-snow" viewBox="0 0 24 24"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M8 15h.01M8 19h.01M12 17h.01M12 21h.01M16 15h.01M16 19h.01"/></symbol><symbol id="i-fog" viewBox="0 0 24 24"><path d="M4 14.9A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 2.5 8.2"/><path d="M16 17H7M17 21H9"/></symbol><symbol id="i-storm" viewBox="0 0 24 24"><path d="M6 16.3A7 7 0 1 1 15.7 8h1.8a4.5 4.5 0 0 1 .5 9"/><path d="M13 12l-3 5h4l-3 5"/></symbol><symbol id="i-up" viewBox="0 0 24 24"><path d="M12 19V5M6 11l6-6 6 6"/></symbol><symbol id="i-down" viewBox="0 0 24 24"><path d="M12 5v14M6 13l6 6 6-6"/></symbol><symbol id="i-user" viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21a8 8 0 0 1 16 0"/></symbol></svg>
 <div id="bg"></div>
+<div id="ui">
 <button id="burger" aria-label="Меню"><svg class="i"><use href="#i-menu"/></svg></button>
 <div id="edge"></div>
 <nav id="nav">
@@ -162,12 +189,13 @@ input[type=date],input[type=time]{min-height:46px}
  <button data-v="hw"><span class="ti"><svg class="i"><use href="#i-tasks"/></svg></span>Задания</button>
  <button data-v="acc"><span class="ti"><svg class="i"><use href="#i-user"/></svg></span>Аккаунт</button>
  <button data-v="set"><span class="ti"><svg class="i"><use href="#i-settings"/></svg></span>Настройки</button>
- <div style="flex:1"></div><button data-a="out"><span class="ti"><svg class="i"><use href="#i-logout"/></svg></span>Выйти</button>
+ <div style="flex:1"></div><div class="lg" id="lgn" style="align-self:flex-start;margin:0 6px 6px"></div><button data-a="out"><span class="ti"><svg class="i"><use href="#i-logout"/></svg></span>Выйти</button>
 </nav>
 <main class="wrap" id="app"></main>
 <aside id="wx" class="gl" aria-label="Время и погода"></aside>
 <dialog id="dlg"><h1 id="dt"></h1><br><form id="df"></form></dialog>
 <div id="toast"></div>
+</div>
 <script src="config.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
 <script>
@@ -181,7 +209,12 @@ const KINDS=['Лекция','Практика','Лабораторная','Др�
 const PRE=['Привет, вот твоё расписание','Не забывай про пары','Скоро занятие','Пора собираться на пару'];
 const BELLS=[['08:30','10:00'],['10:10','11:40'],['12:10','13:40'],['13:50','15:20'],['15:30','17:00'],['17:10','18:40']];
 const THEMES=[['graphite','Графит','#253745'],['fog','Туман','#9BA8AB'],['bordo','Бордо','#6C151E'],['forest','Лес','#0F3D3A'],['cream','Крем','#F2E9D8'],['teal','Бирюза','#2F6F6D'],['terra','Терракота','#E07A47'],['plum','Слива','#5B3A62']];
-const FONTS=[['system','Системный'],['rostov','Rostov'],['lena','Lena'],['izax','Izax'],['daray','Daray']];
+const FONTS=[['system','Системный','ru en'],['pressstart','Press Start 2P','ru en'],['lobster','Lobster','ru en'],['blackops','Black Ops One','en'],['bebas','Bebas Neue','en'],['sciencegothic','Science Gothic','ru en'],['dela','Dela Gothic One','ru en']];
+const FF={pressstart:'PressStart',lobster:'Lobster',blackops:'BlackOps',bebas:'Bebas',sciencegothic:'ScienceGothic',dela:'Dela'};
+let LANG=(()=>{try{const l=localStorage.getItem('lang');if(l==='ru'||l==='en')return l}catch(e){}return(navigator.language||'ru').toLowerCase().startsWith('ru')?'ru':'en'})();
+let SC=(()=>{try{return Math.min(125,Math.max(75,Math.round((+localStorage.getItem('scale')||100)/5)*5))}catch(e){return 100}})();
+const LOC=()=>LANG==='en'?'en-US':LOC();
+const fontOk=k=>(FONTS.find(f=>f[0]===k)||[0,0,''])[2].split(' ').includes(LANG);
 const ic=n=>`<svg class="i"><use href="#i-${n}"/></svg>`,WD=['Пн','Вт','Ср','Чт','Пт','Сб','Вс'];
 const wstrip=(b=cur)=>{const m=monday(b);return'<div class="wds gl">'+WD.map((n,i)=>{const d=new Date(m.getFullYear(),m.getMonth(),m.getDate()+i);return`<button class="wd ${ymd(d)===ymd(b)?'on':''}" data-a="day" data-d="${ymd(d)}">${n}</button>`}).join('')+'</div>'};
 const TC={graphite:'#06141B',fog:'#CCD0CF',bordo:'#F5DABF',forest:'#0a2927',cream:'#F2E9D8',teal:'#0b2a29',terra:'#F2E9D8',plum:'#1d1022'};
@@ -189,9 +222,9 @@ let sb=null,me=null,P=null,L=[],HW=[],OV={},mode='in',view='today',wsel='up',cur
 const esc=s=>String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 const tr=m=>/Invalid login/i.test(m)?'Неверная почта или пароль':/already registered/i.test(m)?'Эта почта уже зарегистрирована':/at least 6/i.test(m)?'Пароль слишком короткий (минимум 6 символов)':m;
 function toast(m){const t=$('#toast');t.textContent=m;t.style.display='block';clearTimeout(toast.h);toast.h=setTimeout(()=>t.style.display='none',5000)}
-function notify(title,body){toast(title+': '+body);try{if(window.Notification&&Notification.permission==='granted')new Notification(title,{body})}catch(_){}}
+function notify(title,body){toast(T(title)+': '+T(body));try{if(window.Notification&&Notification.permission==='granted')new Notification(T(title),{body:T(body)})}catch(_){}}
 const pad=n=>String(n).padStart(2,'0'),ymd=d=>d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate()),pd=s=>new Date(s+'T00:00:00');
-const fmt=s=>pd(s).toLocaleDateString('ru-RU',{day:'numeric',month:'long'});
+const fmt=s=>pd(s).toLocaleDateString(LOC(),{day:'numeric',month:'long'});
 const monday=d=>{const m=new Date(d);m.setDate(m.getDate()-((m.getDay()+6)%7));return m};
 const hm=d=>pad(d.getHours())+':'+pad(d.getMinutes());
 function wk(d){const day=(d.getDay()+6)%7;return Math.round((Date.UTC(d.getFullYear(),d.getMonth(),d.getDate())/864e5-day-4)/7)}
@@ -206,13 +239,13 @@ function lessonsOn(d){const day=(d.getDay()+6)%7;if(day>5)return[];const s=ymd(d
 function dayInfo(d){const s=ymd(d),h=P.hol.find(h=>s>=h.from&&s<=h.to);if(h)return'Каникулы: '+h.title;if((P.sem[0]&&s<P.sem[0])||(P.sem[1]&&s>P.sem[1]))return'Вне семестра';return''}
 const fromRow=r=>({id:r.id,subject:r.subject,day:r.day_of_week,week:r.week_type,start:String(r.start_time).slice(0,5),end:String(r.end_time).slice(0,5),room:r.room||'',teacher:r.teacher||'',notes:r.notes||'',kind:r.kind||'',color:r.color||''});
 const toRow=o=>({subject:o.subject,day_of_week:o.day,week_type:o.week,start_time:o.start,end_time:o.end,room:o.room||null,teacher:o.teacher||null,notes:o.notes||null,kind:o.kind||null,color:o.color||null});
-function applyUI(th,f){const r=document.documentElement;r.dataset.th=th||'graphite';r.dataset.f=f||'system';const tc=document.querySelector('meta[name=theme-color]');if(tc)tc.content=TC[r.dataset.th]||'#06141B';try{localStorage.setItem('ui',JSON.stringify({th:r.dataset.th,f:r.dataset.f}))}catch(e){}}
+function applyUI(th,f){const r=document.documentElement;r.dataset.th=th||'graphite';r.dataset.f=fontOk(f)?f:'system';const tc=document.querySelector('meta[name=theme-color]');if(tc)tc.content=TC[r.dataset.th]||'#06141B';try{localStorage.setItem('ui',JSON.stringify({th:r.dataset.th,f:r.dataset.f}))}catch(e){}}
 try{const u=JSON.parse(localStorage.getItem('ui')||'{}');applyUI(u.th,u.f)}catch(e){}
 async function load(){
  const [p,l,h,o]=await Promise.all([sb.from('profiles').select('*').eq('id',me.id).maybeSingle(),sb.from('lessons').select('*'),sb.from('homework').select('*'),sb.from('overrides').select('*')]);
  const e=p.error||l.error||h.error||o.error;if(e)toast('Ошибка загрузки: '+e.message+'. Выполнен ли migration_v2.sql?');
  const r=p.data||{},date=r.anchor_week_start||ymd(monday(new Date()));
- P={name:r.display_name||'',anchor:{wk:wk(pd(date)),type:r.anchor_week_type||'up',date},remind:r.remind_minutes||10,bells:r.bells||BELLS,sem:[r.semester_start||'',r.semester_end||''],hol:r.holidays||[],nt:r.notify_text||PRE[1],theme:r.theme||'graphite',font:r.font||'system'};
+ P={name:r.display_name||'',anchor:{wk:wk(pd(date)),type:r.anchor_week_type||'up',date},remind:r.remind_minutes||10,bells:r.bells||BELLS,sem:[r.semester_start||'',r.semester_end||''],hol:r.holidays||[],nt:r.notify_text||PRE[1],theme:r.theme||'graphite',font:fontOk(r.font)?r.font:'system'};
  L=(l.data||[]).map(fromRow);HW=h.data||[];OV={};(o.data||[]).forEach(x=>OV[x.lesson_id+x.on_date]=x);
  wsel=wkType(new Date());applyUI(P.theme,P.font);
 }
@@ -237,7 +270,7 @@ function hwHTML(){
 function render(){
  const A=$('#app');document.body.classList.toggle('anon',!me);if(!sb)return;
  $$('#nav [data-v]').forEach(b=>b.classList.toggle('on',b.dataset.v===view));
- if(!me){A.innerHTML=`<div class="auth gl"><h1>Моё расписание</h1><p class="n">Войдите или создайте аккаунт, чтобы расписание было доступно на всех ваших устройствах.</p>
+ if(!me){A.innerHTML=`<div class="auth gl"><div class="lg">${langBtns()}</div><h1>Моё расписание</h1><p class="n">Войдите или создайте аккаунт, чтобы расписание было доступно на всех ваших устройствах.</p>
  <div class="seg"><button class="btn ${mode==='in'?'':'g'}" data-a="mode" data-m="in">Вход</button><button class="btn ${mode==='up'?'':'g'}" data-a="mode" data-m="up">Регистрация</button></div>
  <form id="af"><label>Email</label><input id="u" type="email" autocomplete="email" required maxlength="100"><label>Пароль</label><input id="p" type="password" autocomplete="${mode==='in'?'current-password':'new-password'}" required minlength="6">
  ${mode==='up'?'<label>Повторите пароль</label><input id="p2" type="password" autocomplete="new-password" required>':''}
@@ -246,7 +279,7 @@ function render(){
  const now=new Date();let h='';
  if(view==='today'){
   const t=lessonsOn(cur),inf=dayInfo(cur),isT=ymd(cur)===ymd(now),tm=hm(now),nx=isT?t.findIndex(l=>!l.cancel&&l.end>tm):-1,day=(cur.getDay()+6)%7;
-  h=`<div class="top"><h1>${esc(cur.toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'}))}</h1><span class="badge">${WN[wkType(cur)]}</span></div>
+  h=`<div class="top"><h1>${esc(cur.toLocaleDateString(LOC(),{weekday:'long',day:'numeric',month:'long'}))}</h1><span class="badge">${WN[wkType(cur)]}</span></div>
   <div class="dn"><button class="btn g sq" data-a="dd" data-n="-1" aria-label="Предыдущий день">${ic('left')}</button><button class="btn g" data-a="tod">Сегодня</button><input type="date" data-s="date" value="${ymd(cur)}" style="margin:0;flex:2"><button class="btn g sq" data-a="dd" data-n="1" aria-label="Следующий день">${ic('right')}</button></div>`+
   wstrip()+(inf?`<div class="empty gl card">${esc(inf)}</div>`:'')+(t.length?t.map((l,i)=>card(l,'day',i===nx)).join(''):`<div class="empty">${day<6?'Занятий нет':'Выходной'}</div>`);
  }else if(view==='week'){
@@ -257,10 +290,12 @@ function render(){
  else{
   const np=window.Notification?Notification.permission:'unsupported',cust=cm||!PRE.includes(P.nt),ct=wkType(now);
   h=`<h1>Настройки</h1><div class="card gl"><h2 style="margin-top:0">Оформление</h2><div class="seg">${THEMES.map(([k,n,c])=>`<button class="btn ${P.theme===k?'':'g'}" data-a="th" data-v="${k}"><i class="dot" style="background:${c}"></i>${n}</button>`).join('')}</div>
-  <div class="seg">${FONTS.map(([k,n])=>`<button class="btn ${P.font===k?'':'g'}" data-a="ft" data-v="${k}" style="font-family:${k==='system'?'system-ui':n}">${n}</button>`).join('')}</div></div>
+  <div class="seg">${FONTS.map(([k,n])=>`<button class="btn ${P.font===k?'':'g'}" data-a="ft" data-v="${k}" ${fontOk(k)?'':'disabled'} style="font-family:${FF[k]||'system-ui'},system-ui">${n}</button>`).join('')}</div><p class="n">Шрифты, которые не поддерживают выбранный язык, недоступны.</p></div>
+  <div class="card gl"><h2 style="margin-top:0">Интерфейс</h2><label>Язык</label><div class="seg"><button class="btn ${LANG==='ru'?'':'g'}" data-a="lang" data-l="ru">Русский</button><button class="btn ${LANG==='en'?'':'g'}" data-a="lang" data-l="en">English</button></div>
+  <label>Масштаб интерфейса: <b id="scv">${SC}%</b></label><input type="range" class="rg" data-s="scale" min="75" max="125" step="5" value="${SC}"><div class="tk">${[75,80,85,90,95,100,105,110,115,120,125].map(v=>`<i${v%25===0?` data-l="${v}"`:''}${v===100?' class="m"':''}></i>`).join('')}</div><p class="n">Стандарт: 100%. Значение меняется шагами по 5%.</p></div>
   <div class="card gl"><h2 style="margin-top:0">Недели и напоминания</h2><label>Какая неделя идёт сейчас?</label><select data-s="type"><option value="up" ${ct==='up'?'selected':''}>Над чертой</option><option value="down" ${ct==='down'?'selected':''}>Под чертой</option></select>
   <label>Напоминать за</label><select data-s="remind">${[5,10,15,30,60].map(m=>`<option value="${m}" ${P.remind===m?'selected':''}>${m} мин до начала</option>`).join('')}</select>
-  <label>Текст сообщения</label><select data-s="ntext">${PRE.map(p=>`<option ${!cust&&P.nt===p?'selected':''}>${p}</option>`).join('')}<option value="__c" ${cust?'selected':''}>Свой текст…</option></select>
+  <label>Текст сообщения</label><select data-s="ntext">${PRE.map(p=>`<option value="${p}" ${!cust&&P.nt===p?'selected':''}>${p}</option>`).join('')}<option value="__c" ${cust?'selected':''}>Свой текст…</option></select>
   ${cust?`<input data-s="ncust" maxlength="80" placeholder="Например: Пора на пару!" value="${esc(P.nt)}">`:''}
   <div class="row"><button class="btn g" data-a="notif">${np==='granted'?ic('check')+'Уведомления включены':ic('bell')+'Включить уведомления'}</button><button class="btn g" data-a="test">Проверить сообщение</button></div>
   <p class="n">Напоминания приходят, пока сайт открыт во вкладке или приложении.</p></div>
@@ -279,7 +314,7 @@ function openLesson(l){
   `<div class="row">`+fld('День',`<select name="d">${DAYS.map((n,i)=>`<option value="${i}" ${(l.day??0)===i?'selected':''}>${n}</option>`).join('')}</select>`)+fld('Неделя',`<select name="w">${['both','up','down'].map(k=>`<option value="${k}" ${(l.week||wsel)===k?'selected':''}>${WN[k]}</option>`).join('')}</select>`)+`</div>`+
   fld('Пара из сетки',`<select name="pair"><option value="">— вручную —</option>${P.bells.map((b,i)=>`<option value="${i}">${i+1} пара · ${b[0]}–${b[1]}</option>`).join('')}</select>`)+
   `<div class="row">`+fld('Начало',`<input name="a" type="time" required value="${l.start||P.bells[0][0]}">`)+fld('Конец',`<input name="b" type="time" required value="${l.end||P.bells[0][1]}">`)+`</div>`+
-  `<div class="row">`+fld('Аудитория',`<input name="r" maxlength="30" value="${esc(l.room||'')}">`)+fld('Тип',`<select name="k"><option value="">—</option>${KINDS.map(k=>`<option ${l.kind===k?'selected':''}>${k}</option>`).join('')}</select>`)+`</div>`+
+  `<div class="row">`+fld('Аудитория',`<input name="r" maxlength="30" value="${esc(l.room||'')}">`)+fld('Тип',`<select name="k"><option value="">—</option>${KINDS.map(k=>`<option value="${k}" ${l.kind===k?'selected':''}>${k}</option>`).join('')}</select>`)+`</div>`+
   fld('Преподаватель',`<input name="t" maxlength="80" value="${esc(l.teacher||'')}">`)+fld('Цвет предмета',`<div class="sw">${PAL.map(c=>`<button type="button" data-a="pc" data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join('')}</div><input name="c" type="color" value="${l.id||l.subject?col(l):PAL[5]}">`)+fld('Заметка',`<textarea name="n" rows="2" maxlength="200">${esc(l.notes||'')}</textarea>`),
   async v=>{
    const o={subject:v.get('s').trim(),day:+v.get('d'),week:v.get('w'),start:v.get('a'),end:v.get('b'),room:v.get('r').trim(),kind:v.get('k'),teacher:v.get('t').trim(),color:v.get('c'),notes:v.get('n').trim()};
@@ -329,25 +364,26 @@ document.addEventListener('click',async e=>{
  else if(a==='edit')openLesson(L.find(x=>x.id===id));
  else if(a==='copy')openLesson({...L.find(x=>x.id===id),id:null});
  else if(a==='ovr')openOv(lessonsOn(cur).find(x=>x.id===id));
- else if(a==='del'){if(!confirm('Удалить занятие?'))return;const r=await sb.from('lessons').delete().eq('id',id);if(r.error)return toast('Ошибка: '+r.error.message);L=L.filter(x=>x.id!==id);HW=HW.map(h=>h.lesson_id===id?{...h,lesson_id:null}:h);render()}
+ else if(a==='del'){if(!confirm(T('Удалить занятие?')))return;const r=await sb.from('lessons').delete().eq('id',id);if(r.error)return toast('Ошибка: '+r.error.message);L=L.filter(x=>x.id!==id);HW=HW.map(h=>h.lesson_id===id?{...h,lesson_id:null}:h);render()}
  else if(a==='hwa')openHW();
  else if(a==='hwe')openHW(HW.find(x=>x.id===id));
- else if(a==='hwd'){if(!confirm('Удалить задание?'))return;const r=await sb.from('homework').delete().eq('id',id);if(r.error)return toast('Ошибка: '+r.error.message);HW=HW.filter(x=>x.id!==id);render()}
+ else if(a==='hwd'){if(!confirm(T('Удалить задание?')))return;const r=await sb.from('homework').delete().eq('id',id);if(r.error)return toast('Ошибка: '+r.error.message);HW=HW.filter(x=>x.id!==id);render()}
  else if(a==='hwt'){const h=HW.find(x=>x.id===id),r=await sb.from('homework').update({done:!h.done}).eq('id',id).select().single();if(r.error)toast('Ошибка: '+r.error.message);else HW=HW.map(x=>x.id===id?r.data:x);render()}
  else if(a==='th'){P.theme=t.dataset.v;applyUI(P.theme,P.font);render();saveProfile()}
- else if(a==='ft'){P.font=t.dataset.v;applyUI(P.theme,P.font);render();saveProfile()}
+ else if(a==='ft'){if(!fontOk(t.dataset.v))return;P.font=t.dataset.v;applyUI(P.theme,P.font);render();saveProfile()}
  else if(a==='bd'){if(P.bells.length>1){P.bells.splice(i,1);render();saveProfile()}}
  else if(a==='ba'){const b=P.bells[P.bells.length-1]||['08:30','10:00'];P.bells.push([b[1],b[1]]);render();saveProfile()}
  else if(a==='hd'){P.hol.splice(i,1);render();saveProfile()}
  else if(a==='ha')dlg('Каникулы',fld('Название',`<input name="t" required maxlength="40" placeholder="Зимние каникулы">`)+`<div class="row">`+fld('С',`<input name="f" type="date" required>`)+fld('По',`<input name="e" type="date" required>`)+`</div>`,async v=>{if(v.get('e')<v.get('f')){toast('Дата окончания раньше начала');return false}P.hol.push({title:v.get('t').trim(),from:v.get('f'),to:v.get('e')});render();saveProfile();return true});
+ else if(a==='lang')applyLang(t.dataset.l);
  else if(a==='city')findCity();
  else if(a==='geo')geoCity();
  else if(a==='goset'){view='set';render()}
  else if(a==='accname'){const v=$('#an').value.trim(),r=await sb.from('profiles').upsert({id:me.id,display_name:v||null});if(r.error)return toast('Ошибка: '+r.error.message);P.name=v;toast('Имя сохранено');render()}
  else if(a==='accmail'){const v=$('#ae').value.trim();if(!v)return toast('Введите новую почту');const r=await sb.auth.updateUser({email:v});toast(r.error?tr(r.error.message):'Письмо с подтверждением отправлено на новую почту')}
  else if(a==='accpass'){const v=$('#ap').value;if(v.length<6)return toast('Пароль слишком короткий (минимум 6 символов)');if(v!==$('#ap2').value)return toast('Пароли не совпадают');const r=await sb.auth.updateUser({password:v});toast(r.error?tr(r.error.message):'Пароль изменён');if(!r.error)render()}
- else if(a==='accwipe'){if(!confirm('Удалить все занятия, задания и отмены? Это нельзя отменить.'))return;const r1=await sb.from('homework').delete().eq('user_id',me.id),r2=await sb.from('lessons').delete().eq('user_id',me.id),er=r1.error||r2.error;if(er)return toast('Ошибка: '+er.message);L=[];HW=[];OV={};toast('Расписание очищено');render()}
- else if(a==='accdel'){if(!confirm('Удалить аккаунт навсегда вместе со всеми данными?'))return;const r=await sb.rpc('delete_my_account');if(r.error)return toast('Не удалось удалить: '+r.error.message+'. Выполнен ли migration_v3.sql?');await sb.auth.signOut();me=null;P=null;L=[];HW=[];OV={};view='today';render();toast('Аккаунт удалён')}
+ else if(a==='accwipe'){if(!confirm(T('Удалить все занятия, задания и отмены? Это нельзя отменить.')))return;const r1=await sb.from('homework').delete().eq('user_id',me.id),r2=await sb.from('lessons').delete().eq('user_id',me.id),er=r1.error||r2.error;if(er)return toast('Ошибка: '+er.message);L=[];HW=[];OV={};toast('Расписание очищено');render()}
+ else if(a==='accdel'){if(!confirm(T('Удалить аккаунт навсегда вместе со всеми данными?')))return;const r=await sb.rpc('delete_my_account');if(r.error)return toast('Не удалось удалить: '+r.error.message+'. Выполнен ли migration_v3.sql?');await sb.auth.signOut();me=null;P=null;L=[];HW=[];OV={};view='today';render();toast('Аккаунт удалён')}
  else if(a==='forgot'){const v=(($('#u')||{}).value||'').trim();if(!v)return toast('Сначала введите почту в поле выше');const r=await sb.auth.resetPasswordForEmail(v,{redirectTo:location.href.split('#')[0]});toast(r.error?tr(r.error.message):'Письмо для сброса пароля отправлено')}
  else if(a==='pc')$('#df').c.value=t.dataset.c;
  else if(a==='day'){cur=pd(t.dataset.d);view='today';render()}
@@ -361,6 +397,7 @@ document.addEventListener('change',async e=>{
  if(el.name==='pair'&&el.value!==''){const b=P.bells[+el.value];el.form.a.value=b[0];el.form.b.value=b[1]}
  if(s==='date'&&el.value){cur=pd(el.value);render()}
  else if(s==='type'){P.anchor={wk:wk(new Date()),type:el.value,date:ymd(monday(new Date()))};wsel=el.value;render();saveProfile()}
+ else if(s==='scale'){SC=+el.value;try{localStorage.setItem('scale',SC)}catch(e){}applyScale();render()}
  else if(s==='remind'){P.remind=+el.value;saveProfile()}
  else if(s==='ntext'){if(el.value==='__c'){cm=true;render()}else{cm=false;P.nt=el.value;render();saveProfile()}}
  else if(s==='ncust'){P.nt=el.value.trim()||PRE[1];saveProfile()}
@@ -387,7 +424,7 @@ async function loadWx(){
 }
 function renderWx(){
  const e=$('#wx');if(!e)return;const n=new Date(),w=WX?WCODE(WX.c):null;
- e.innerHTML=`<div class="wxh"><span>${esc(n.toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'}))}</span><span>${CITY?esc(CITY.name):''}</span></div>
+ e.innerHTML=`<div class="wxh"><span>${esc(n.toLocaleDateString(LOC(),{weekday:'long',day:'numeric',month:'long'}))}</span><span>${CITY?esc(CITY.name):''}</span></div>
  <div class="wxm"><div class="wxt">${hm(n)}</div>${WX?`<div class="wxw">${ic(w[0])}<b>${WX.t}°</b></div>`:''}</div>
  ${WX?`<div class="wxs"><span>${w[1]}, ощущается ${WX.f}°</span><span class="pl">${ic('up')}${WX.max}°</span><span class="pl">${ic('down')}${WX.min}°</span></div>`:`<div class="wxs"><span>${CITY?'Погода недоступна':'Город не выбран'}</span><button class="btn g" data-a="goset">Настроить</button></div>`}
  ${wstrip(n)}`;
@@ -397,6 +434,225 @@ async function findCity(){const v=(($('#cityin')||{}).value||'').trim();if(!v)re
  try{const r=await fetch('https://geocoding-api.open-meteo.com/v1/search?count=1&language=ru&name='+encodeURIComponent(v)),j=await r.json(),x=(j.results||[])[0];if(!x)return toast('Город не найден');setCity({name:x.name,lat:x.latitude,lon:x.longitude})}catch(e){toast('Не удалось найти город')}}
 function geoCity(){if(!navigator.geolocation)return toast('Геолокация недоступна');navigator.geolocation.getCurrentPosition(p=>setCity({name:'Моё местоположение',lat:p.coords.latitude,lon:p.coords.longitude}),()=>toast('Нет доступа к геопозиции'))}
 setInterval(renderWx,10000);setInterval(loadWx,1800000);
+/*I18N*/
+const D=Object.fromEntries(`Моё расписание|My schedule
+Расписание|Schedule
+Сегодня|Today
+Задания|Tasks
+Аккаунт|Account
+Настройки|Settings
+Выйти|Log out
+Меню|Menu
+Войдите или создайте аккаунт, чтобы расписание было доступно на всех ваших устройствах.|Sign in or create an account to access your schedule on all your devices.
+Вход|Sign in
+Регистрация|Sign up
+Пароль|Password
+Повторите пароль|Repeat password
+Войти|Sign in
+Создать аккаунт|Create account
+Забыли пароль?|Forgot password?
+Пароли не совпадают|Passwords do not match
+Аккаунт создан. Подтвердите почту по ссылке из письма, затем войдите.|Account created. Confirm your email via the link in the message, then sign in.
+Неверная почта или пароль|Invalid email or password
+Эта почта уже зарегистрирована|This email is already registered
+Пароль слишком короткий (минимум 6 символов)|Password is too short (minimum 6 characters)
+Нужна настройка|Setup required
+Создайте рядом с index.html файл config.js и впишите в него Project URL и публичный ключ Supabase.|Create a config.js file next to index.html and put your Supabase Project URL and public key in it.
+Загрузка…|Loading…
+Предыдущий день|Previous day
+Следующий день|Next day
+Занятий нет|No classes
+Выходной|Day off
+Вне семестра|Outside the semester
+Над чертой|Upper week
+Под чертой|Lower week
+Каждая неделя|Every week
+Список|List
+Сетка|Grid
+Поиск по предмету или преподавателю|Search by subject or teacher
+Добавить|Add
+Нет занятий|No classes
+Аудитория не указана|Room not set
+Отменено|Cancelled
+Замена|Changed
+Изменить|Edit
+Копировать|Copy
+Удалить|Delete
+Отменить или заменить|Cancel or change
+Задание|Task
+Невыполненных заданий нет|No open tasks
+Выполнено|Done
+просрочено|overdue
+Оформление|Appearance
+Графит|Graphite
+Туман|Fog
+Бордо|Bordeaux
+Лес|Forest
+Крем|Cream
+Бирюза|Teal
+Терракота|Terracotta
+Слива|Plum
+Системный|System
+Шрифты, которые не поддерживают выбранный язык, недоступны.|Fonts that do not support the selected language are unavailable.
+Интерфейс|Interface
+Язык|Language
+Масштаб интерфейса:|Interface scale:
+Стандарт: 100%. Значение меняется шагами по 5%.|Default: 100%. The value changes in 5% steps.
+Недели и напоминания|Weeks and reminders
+Какая неделя идёт сейчас?|Which week is it now?
+Напоминать за|Remind me
+Текст сообщения|Message text
+Привет, вот твоё расписание|Hi, here is your schedule
+Не забывай про пары|Don’t forget your classes
+Скоро занятие|Class starts soon
+Пора собираться на пару|Time to get ready for class
+Свой текст…|Custom text…
+Например: Пора на пару!|For example: Time for class!
+Включить уведомления|Enable notifications
+Уведомления включены|Notifications enabled
+Проверить сообщение|Test message
+Напоминания приходят, пока сайт открыт во вкладке или приложении.|Reminders arrive while the site is open in a tab or app.
+Звонки (сетка пар)|Bell schedule
+Пара|Pair
+Семестр и каникулы|Semester and holidays
+Начало семестра|Semester start
+Конец семестра|Semester end
+Каникулы|Holidays
+Погода (виджет на компьютере)|Weather (desktop widget)
+Город|City
+Найти город|Find city
+По геопозиции|By location
+Например: Москва|For example: London
+Новое занятие|New class
+Изменить занятие|Edit class
+Предмет|Subject
+День|Day
+Неделя|Week
+Пара из сетки|Pair from schedule
+— вручную —|— manual —
+Начало|Start
+Конец|End
+Аудитория|Room
+Тип|Type
+Преподаватель|Teacher
+Цвет предмета|Subject color
+Заметка|Note
+Отмена|Cancel
+Сохранить|Save
+Лекция|Lecture
+Практика|Practical
+Лабораторная|Lab
+Другое|Other
+Что сделать|What to do
+Отменить занятие|Cancel the class
+Заменить время или аудиторию|Change time or room
+Вернуть как было|Restore original
+Новое задание|New task
+Изменить задание|Edit task
+Занятие|Class
+— не привязано —|— not linked —
+Срок|Due date
+Название|Title
+Зимние каникулы|Winter break
+С|From
+По|To
+Профиль|Profile
+Имя|Name
+Как к вам обращаться|How should we call you
+Сохранить имя|Save name
+Почта|Email
+Новая почта|New email
+Сменить почту|Change email
+Письмо с подтверждением придёт на новый адрес.|A confirmation email will be sent to the new address.
+Новый пароль|New password
+Сменить пароль|Change password
+Данные|Data
+Очистить расписание|Clear schedule
+Удалить аккаунт|Delete account
+«Очистить расписание» удаляет все занятия, задания и отмены. Удаление аккаунта необратимо.|“Clear schedule” deletes all classes, tasks and cancellations. Account deletion is irreversible.
+Город не выбран|No city selected
+Настроить|Set up
+Погода недоступна|Weather unavailable
+Время и погода|Time and weather
+Ясно|Clear
+Малооблачно|Partly cloudy
+Облачно|Cloudy
+Туман|Fog
+Дождь|Rain
+Ливень|Showers
+Снег|Snow
+Снегопад|Snowfall
+Гроза|Thunderstorm
+Конец занятия должен быть позже начала|The end must be later than the start
+Дата окончания раньше начала|The end date is before the start date
+Браузер не поддерживает уведомления. Напоминания будут показываться на странице.|Your browser does not support notifications. Reminders will be shown on the page.
+Имя сохранено|Name saved
+Введите новую почту|Enter a new email
+Письмо с подтверждением отправлено на новую почту|A confirmation email was sent to the new address
+Пароль изменён|Password changed
+Расписание очищено|Schedule cleared
+Аккаунт удалён|Account deleted
+Сначала введите почту в поле выше|Enter your email in the field above first
+Письмо для сброса пароля отправлено|Password reset email sent
+Введите название города|Enter a city name
+Город не найден|City not found
+Не удалось найти город|Could not find the city
+Геолокация недоступна|Geolocation is unavailable
+Нет доступа к геопозиции|No access to location
+Введите новый пароль в разделе «Аккаунт»|Enter a new password in the “Account” section
+Пример: Математика в 08:30, ауд. 214|Example: Math at 08:30, room 214
+Удалить занятие?|Delete this class?
+Удалить задание?|Delete this task?
+Удалить все занятия, задания и отмены? Это нельзя отменить.|Delete all classes, tasks and cancellations? This cannot be undone.
+Удалить аккаунт навсегда вместе со всеми данными?|Delete your account permanently with all data?
+Пн|Mon
+Вт|Tue
+Ср|Wed
+Чт|Thu
+Пт|Fri
+Сб|Sat
+Вс|Sun
+Понедельник|Monday
+Вторник|Tuesday
+Среда|Wednesday
+Четверг|Thursday
+Пятница|Friday
+Суббота|Saturday
+Воскресенье|Sunday`.split('\n').map(l=>l.split('|')));
+const DAYAB={'Пн':'Mon','Вт':'Tue','Ср':'Wed','Чт':'Thu','Пт':'Fri','Сб':'Sat','Вс':'Sun'};
+const PAT=[
+ [/^(\d+) мин до начала$/,'$1 min before start'],[/^ауд\. (.+)$/,'Room $1'],[/^(\d+) пара$/,'Pair $1'],[/^до (.+)$/,'until $1'],
+ [/^Каникулы: (.+)$/,'Holidays: $1'],[/^Вы вошли как (.+)$/,'Signed in as $1'],[/^Ошибка: (.+)$/,'Error: $1'],
+ [/^Ошибка загрузки: (.+)\. Выполнен ли migration_v2\.sql\?$/,'Load error: $1. Did you run migration_v2.sql?'],
+ [/^Не удалось сохранить: (.+)$/,'Could not save: $1'],[/^Не удалось удалить: (.+)\. Выполнен ли migration_v3\.sql\?$/,'Could not delete: $1. Did you run migration_v3.sql?'],
+ [/^Город: (.+)$/,'City: $1'],
+ [/^(.+), ощущается (-?\d+)°$/,(m,a,b)=>T1(a)+', feels like '+b+'°'],
+ [/^(.+) в (\d\d:\d\d)(?:, ауд\. (.+))?$/,(m,a,b,c)=>a+' at '+b+(c?', room '+c:'')],
+ [/^Текущий город: (.+)\. Хранится на этом устройстве\. Виджет виден на компьютере при ширине окна от 1100 px\.$/,'Current city: $1. Stored on this device. The widget is visible on desktop for window widths from 1100 px.']];
+function T1(s){if(D[s])return D[s];for(const [r,v] of PAT)if(r.test(s))return s.replace(r,v);return s}
+function T(s){s=String(s);if(LANG!=='en')return s;if(D[s])return D[s];const r=s.includes(' · ')?s.split(' · ').map(T1).join(' · '):T1(s);return r.replace(/\((Пн|Вт|Ср|Чт|Пт|Сб), /g,(m,d)=>'('+DAYAB[d]+', ')}
+/*END*/
+const ATT=['placeholder','aria-label','title'];
+function trNode(n){
+ if(!n)return;
+ if(n.nodeType===3){const p=n.parentNode;if(p&&(p.tagName==='SCRIPT'||p.tagName==='STYLE'))return;if(n._ru===undefined)n._ru=n.nodeValue;const m=n._ru.match(/^(\s*)([\s\S]*?)(\s*)$/);n.nodeValue=LANG==='en'&&m[2]?m[1]+T(m[2])+m[3]:n._ru;return}
+ if(n.nodeType!==1)return;
+ [n,...n.querySelectorAll('*')].forEach(e=>ATT.forEach(a=>{if(e.hasAttribute(a)){e._ra=e._ra||{};if(e._ra[a]===undefined)e._ra[a]=e.getAttribute(a);e.setAttribute(a,LANG==='en'?T(e._ra[a]):e._ra[a])}}));
+ const w=document.createTreeWalker(n,NodeFilter.SHOW_TEXT);let x;while(x=w.nextNode())trNode(x);
+}
+new MutationObserver(ms=>{if(LANG!=='en')return;ms.forEach(m=>m.addedNodes.forEach(trNode))}).observe(document.body,{childList:true,subtree:true});
+const langBtns=()=>['ru','en'].map(l=>`<button class="${LANG===l?'on':''}" data-a="lang" data-l="${l}">${l.toUpperCase()}</button>`).join('');
+function paintLang(){const n=$('#lgn');if(n)n.innerHTML=langBtns()}
+function applyScale(){const u=$('#ui');if(u)u.style.zoom=SC/100}
+function applyLang(l){
+ if(l===LANG)return;LANG=l;try{localStorage.setItem('lang',l)}catch(e){}
+ document.documentElement.lang=l;
+ if(P&&!fontOk(P.font)){P.font='system';saveProfile()}
+ applyUI(P?P.theme:document.documentElement.dataset.th,P?P.font:document.documentElement.dataset.f);
+ paintLang();trNode($('#ui'));document.title=LANG==='en'?T('Моё расписание'):'Моё расписание';
+ render();renderWx();
+}
+document.addEventListener('input',e=>{if(e.target.dataset&&e.target.dataset.s==='scale')$('#scv').textContent=e.target.value+'%'});
 function accHTML(){
  const nm=P.name||'',mail=me.email||'';
  return`<h1>Аккаунт</h1><div class="card gl l" style="--c:var(--ac);margin-top:12px"><span class="ti" style="width:52px;height:52px;border-radius:50%;font-size:1.4rem;font-weight:700">${esc((nm||mail||'?')[0].toUpperCase())}</span><div class="m"><b>${esc(nm||mail.split('@')[0])}</b><span>${esc(mail)}</span></div></div>
@@ -431,7 +687,7 @@ setInterval(()=>{
  });
 },20000);
 (async()=>{
- const A=$('#app');
+ const A=$('#app');applyScale();paintLang();if(LANG==='en'){document.documentElement.lang='en';document.title=T(document.title);trNode($('#ui'))}
  if(!window.supabase||SUPABASE_URL.startsWith('ВАШ')||SUPABASE_KEY.startsWith('ВАШ')){document.body.classList.add('anon');A.innerHTML='<div class="auth gl"><h1>Нужна настройка</h1><p class="n">Создайте рядом с index.html файл config.js и впишите в него Project URL и публичный ключ Supabase.</p></div>';return}
  sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);renderWx();loadWx();
  sb.auth.onAuthStateChange(ev=>{if(ev==='PASSWORD_RECOVERY')setTimeout(async()=>{const {data}=await sb.auth.getSession();if(data.session){me=data.session.user;P=null;view='acc';render();await load();render();toast('Введите новый пароль в разделе «Аккаунт»')}},0)});

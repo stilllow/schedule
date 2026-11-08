@@ -1,0 +1,9 @@
+{
+  "name": "schedule-site",
+  "version": "5.0.0",
+  "private": true,
+  "description": "Сайт расписания занятий (статический, без сборки)",
+  "scripts": {
+    "test": "node tests/run.js"
+  }
+}

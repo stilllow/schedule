@@ -8,7 +8,7 @@ const D=Object.fromEntries(`Моё расписание|My schedule
 Настройки|Settings
 Выйти|Log out
 Меню|Menu
-Войдите или создайте аккаунт, чтобы расписание было доступно на всех ваших устройствах.|Sign in or create an account to access your schedule on all your devices.
+Войдите или зарегистрируйтесь — расписание будет на всех устройствах.|Sign in or sign up — your schedule will be on all your devices.
 Вход|Sign in
 Регистрация|Sign up
 Пароль|Password
@@ -58,11 +58,11 @@ const D=Object.fromEntries(`Моё расписание|My schedule
 Терракота|Terracotta
 Слива|Plum
 Системный|System
-Шрифты, которые не поддерживают выбранный язык, недоступны.|Fonts that do not support the selected language are unavailable.
+Серые шрифты не поддерживают этот язык.|Greyed-out fonts do not support this language.
 Интерфейс|Interface
 Язык|Language
 Масштаб интерфейса:|Interface scale:
-Стандарт: 100%. Значение меняется шагами по 5%.|Default: 100%. The value changes in 5% steps.
+Стандарт — 100%.|Default — 100%.
 Недели и напоминания|Weeks and reminders
 Какая неделя идёт сейчас?|Which week is it now?
 Напоминать за|Remind me
@@ -76,7 +76,7 @@ const D=Object.fromEntries(`Моё расписание|My schedule
 Включить уведомления|Enable notifications
 Уведомления включены|Notifications enabled
 Проверить сообщение|Test message
-Напоминания приходят, пока сайт открыт во вкладке или приложении.|Reminders arrive while the site is open in a tab or app.
+Напоминания работают, пока сайт открыт.|Reminders work while the site is open.
 Звонки (сетка пар)|Bell schedule
 Пара|Pair
 Семестр и каникулы|Semester and holidays
@@ -128,13 +128,13 @@ const D=Object.fromEntries(`Моё расписание|My schedule
 Почта|Email
 Новая почта|New email
 Сменить почту|Change email
-Письмо с подтверждением придёт на новый адрес.|A confirmation email will be sent to the new address.
+Подтверждение придёт на новую почту.|A confirmation will be sent to the new email.
 Новый пароль|New password
 Сменить пароль|Change password
 Данные|Data
 Очистить расписание|Clear schedule
 Удалить аккаунт|Delete account
-«Очистить расписание» удаляет все занятия, задания и отмены. Удаление аккаунта необратимо.|“Clear schedule” deletes all classes, tasks and cancellations. Account deletion is irreversible.
+Очистка удаляет занятия, задания и отмены. Удаление аккаунта необратимо.|Clearing deletes classes, tasks and cancellations. Deleting the account cannot be undone.
 Город не выбран|No city selected
 Настроить|Set up
 Погода недоступна|Weather unavailable
@@ -192,7 +192,7 @@ const D=Object.fromEntries(`Моё расписание|My schedule
 Тип расписания|Schedule type
 Цикличное|Cyclic
 Статичное|Static
-Цикличное: недели чередуются (над и под чертой). Статичное: расписание одинаково каждую неделю.|Cyclic: weeks alternate (upper and lower). Static: the schedule is the same every week.
+Цикличное — недели чередуются. Статичное — всегда одинаково.|Cyclic — weeks alternate. Static — always the same.
 Изменить фото|Change photo
 Удалить фото|Remove photo
 Не удалось загрузить фото|Could not load the photo
@@ -206,7 +206,7 @@ const D=Object.fromEntries(`Моё расписание|My schedule
 Пока нет факультативов|No electives yet
 Добавить факультатив|Add elective
 Редактирование факультативов|Edit electives
-Добавьте кружки и секции: у одного факультатива может быть несколько дней и разное время.|Add clubs and sections: one elective can have several days and different times.
+Один факультатив — несколько дней и разное время.|One elective — several days and different times.
 Новый факультатив|New elective
 Изменить факультатив|Edit elective
 Цвет|Color
@@ -224,20 +224,20 @@ const D=Object.fromEntries(`Моё расписание|My schedule
 Срок задания|Task deadline
 Экспорт и доступ|Export and sharing
 Скачать расписание (.ics)|Download schedule (.ics)
-Добавьте занятия в Google, Apple или Outlook Calendar. Даты семестра берутся из настроек ниже.|Add your classes to Google, Apple or Outlook Calendar. Semester dates are taken from the settings below.
+Для Google, Apple и Outlook Calendar. Конец — по дате конца семестра.|For Google, Apple and Outlook Calendar. Ends on the semester end date.
 Доступ по ссылке|Access by link
-Любой, у кого есть ссылка, увидит расписание (без заметок и заданий). Отключите доступ — ссылка перестанет работать.|Anyone with the link can see your schedule (without notes and tasks). Turn access off and the link stops working.
+Видно всем, у кого есть ссылка (без заметок и заданий).|Visible to anyone with the link (without notes and tasks).
 Копировать ссылку|Copy link
 Новая ссылка|New link
 Ссылка скопирована|Link copied
-Файл расписания скачан. Откройте его, чтобы добавить в календарь|Schedule file downloaded. Open it to add to your calendar
+Файл скачан. Откройте его, чтобы добавить в календарь.|File downloaded. Open it to add to your calendar.
 Выполните migration_v5.sql, чтобы включить доступ по ссылке|Run migration_v5.sql to enable link access
 Ссылка недействительна|Invalid link
-Владелец мог отключить доступ или ссылка скопирована не полностью.|The owner may have turned access off, or the link was copied incompletely.
+Доступ отключён или ссылка неполная.|Access is turned off or the link is incomplete.
 Только просмотр|View only
 Напоминать о заданиях|Remind about tasks
 Цикличность факультативов|Cyclic electives
-Включайте, только если у ваших факультативов чередуются недели (над и под чертой). Обычно это не нужно.|Turn this on only if your electives alternate by week (upper and lower). Usually it is not needed.
+Нужно, только если у факультативов чередуются недели.|Only if your electives alternate by week.
 Импорт|Import
 Импорт расписания|Import schedule
 Куда добавить|Add to
@@ -246,16 +246,16 @@ const D=Object.fromEntries(`Моё расписание|My schedule
 Импортировать|Import
 Вставьте текст расписания|Paste schedule text
 или загрузите файл|or upload a file
-Фото, PDF, Excel, CSV или текст. Распознавание не идеально, поэтому на следующем шаге всё можно проверить и поправить.|Photo, PDF, Excel, CSV or text. Recognition is not perfect, so you can check and fix everything on the next step.
+Фото, PDF, Excel, CSV или текст. Результат можно поправить на следующем шаге.|Photo, PDF, Excel, CSV or text. You can edit the result on the next step.
 Например: Пн 08:30-10:00 Математика ауд. 214|For example: Mon 08:30-10:00 Math room 214
-Ничего не найдено. Проверьте текст: нужны дни недели и время вида 08:30-10:00.|Nothing found. Check the text: it needs weekdays and times like 08:30-10:00.
+Не найдено. Нужны дни недели и время вида 08:30-10:00.|Nothing found. Weekdays and times like 08:30-10:00 are required.
 Проверьте занятия|Check the classes
 Распознаю…|Recognizing…
 Не удалось прочитать файл|Could not read the file
-Готово. Проверьте текст и нажмите «Распознать».|Done. Check the text and press “Recognize”.
+Готово. Нажмите «Распознать».|Done. Press “Recognize”.
 Включить|Include
 День не определён|Day not detected
-Проверьте поля: нужны название и время (конец позже начала)|Check the fields: a title and a time are required (the end must be later than the start)
+Нужны название и время (конец позже начала)|A title and a time are required (end after start)
 Выберите хотя бы одно занятие|Select at least one class
 Начало работы|Getting started
 Выберите тип расписания и текущую неделю|Choose the schedule type and current week
@@ -263,14 +263,19 @@ const D=Object.fromEntries(`Моё расписание|My schedule
 Добавить вручную|Add manually
 Загрузить файл или фото|Upload a file or photo
 Включите уведомления|Turn on notifications
-Скрыть подсказки|Hide tips
-Занятий пока нет. Начните с добавления расписания.|No classes yet. Start by adding your schedule.
+Скрыть|Hide
+Тема|Theme
+Шрифт|Font
+изменить|edit
+копировать|copy
+удалить|delete
+Занятий пока нет.|No classes yet.
 Здесь вы редактируете основное расписание. Нажмите «Добавить» у нужного дня.|This is where you edit the main schedule. Press “Add” next to the day you need.
 Карандаш — изменить, листы — копировать, корзина — удалить.|Pencil — edit, sheets — copy, bin — delete.
-отменить или заменить занятие только на этот день|cancel or change a class for this day only
-Задание можно привязать к занятию. Сроки попадают в «Сводку недели» и в напоминания.|A task can be linked to a class. Due dates appear in the week summary and in reminders.
-Время пар используется для быстрого выбора при добавлении занятий.|Bell times are used for quick selection when adding classes.
-Нужны, чтобы в каникулы не было напоминаний, а календарь заканчивался вовремя.|They stop reminders during holidays and end the calendar on time.`.split('\n').map(l=>l.split('|')));
+отмена или замена на этот день|cancel or change for this day
+Сроки видны в сводке недели и в напоминаниях.|Due dates appear in the week summary and reminders.
+Для быстрого выбора времени.|For quick time selection.
+В каникулы напоминаний нет.|No reminders during holidays.`.split('\n').map(l=>l.split('|')));
 const DAYAB={'Пн':'Mon','Вт':'Tue','Ср':'Wed','Чт':'Thu','Пт':'Fri','Сб':'Sat','Вс':'Sun'};
 const PAT=[
  [/^(\d+) мин до начала$/,'$1 min before start'],[/^ауд\. (.+)$/,'Room $1'],[/^(\d+) пара$/,'Pair $1'],[/^до (.+)$/,'until $1'],
@@ -280,14 +285,14 @@ const PAT=[
  [/^Город: (.+)$/,'City: $1'],
  [/^(.+), ощущается (-?\d+)°$/,(m,a,b)=>T1(a)+', feels like '+b+'°'],
  [/^(.+) в (\d\d:\d\d)(?:, ауд\. (.+))?$/,(m,a,b,c)=>a+' at '+b+(c?', room '+c:'')],
- [/^Текущий город: (.+)\. Хранится на этом устройстве\. Виджет виден на компьютере при ширине окна от 1100 px\.$/,'Current city: $1. Stored on this device. The widget is visible on desktop for window widths from 1100 px.'],
+ [/^Выбрано: (.+)\. Виджет — только на ПК\.$/,'Selected: $1. The widget is desktop only.'],
  [/^Пересечение: (.+)$/,'Overlap: $1'],[/^Пересекается с (.+)\. Сохранить всё равно\?$/,'Overlaps with $1. Save anyway?'],
  [/^Окно (.+)$/,(m,d)=>'Break '+T1(d)],[/^(\d+) ч(?: (\d+) мин)?$/,(m,h,mi)=>h+' h'+(mi?' '+mi+' min':'')],[/^(\d+) мин$/,'$1 min'],
  [/^через (\d+) ч(?: (\d+) мин)?$/,(m,h,mi)=>'in '+h+' h'+(mi?' '+mi+' min':'')],[/^через (\d+) мин$/,'in $1 min'],
  [/^(Сегодня|Завтра), (\d\d:\d\d)$/,(m,d,t)=>(d==='Сегодня'?'Today':'Tomorrow')+', '+t],
  [/^Удалить факультатив «(.+)» со всеми днями\?$/,'Delete elective “$1” with all its days?'],
- [/^Найдено занятий: (\d+)\. Проверьте и исправьте\.$/,'Found classes: $1. Check and edit them.'],[/^Импортировано: (\d+)$/,'Imported: $1'],
- [/^Расписание: (.+)$/,'Schedule: $1'],[/^(.+) — (сегодня|завтра)$/,(m,a,d)=>a+' — '+(d==='сегодня'?'today':'tomorrow')],
+ [/^Найдено: (\d+)\. Проверьте и исправьте\.$/,'Found: $1. Check and edit.'],[/^Импортировано: (\d+)$/,'Imported: $1'],
+ [/^Расписание: (.+)$/,'Schedule: $1'],[/^Добавить: (.+)$/,(m,d)=>'Add: '+T1(d)],[/^(.+) — (сегодня|завтра)$/,(m,a,d)=>a+' — '+(d==='сегодня'?'today':'tomorrow')],
  [/^((?:Пн|Вт|Ср|Чт|Пт|Сб)(?:, (?:Пн|Вт|Ср|Чт|Пт|Сб))+)$/,m=>m.replace(/Пн|Вт|Ср|Чт|Пт|Сб/g,x=>DAYAB[x])]];
 function T1(s){if(D[s])return D[s];for(const [r,v] of PAT)if(r.test(s))return s.replace(r,v);return s}
 function T(s){s=String(s);if(LANG!=='en')return s;if(D[s])return D[s];const r=s.includes(' · ')?s.split(' · ').map(T1).join(' · '):T1(s);return r.replace(/\((Пн|Вт|Ср|Чт|Пт|Сб), /g,(m,d)=>'('+DAYAB[d]+', ')}

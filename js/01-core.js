@@ -9,6 +9,7 @@ const KINDS=['Лекция','Практика','Лабораторная','Др�
 const PRE=['Привет, вот твоё расписание','Не забывай про пары','Скоро занятие','Пора собираться на пару'];
 const BELLS=[['08:30','10:00'],['10:10','11:40'],['12:10','13:40'],['13:50','15:20'],['15:30','17:00'],['17:10','18:40']];
 const THEMES=[['graphite','Графит','#253745'],['fog','Туман','#9BA8AB'],['bordo','Бордо','#6C151E'],['forest','Лес','#0F3D3A'],['cream','Крем','#F2E9D8'],['teal','Бирюза','#2F6F6D'],['terra','Терракота','#E07A47'],['plum','Слива','#5B3A62']];
+const TPV={graphite:['#06141B','#4A5C6A'],fog:['#CCD0CF','#9BA8AB'],bordo:['#F5DABF','#6C151E'],forest:['#0a2927','#1d6b64'],cream:['#F2E9D8','#59718A'],teal:['#0b2a29','#8FA68F'],terra:['#F2E9D8','#E07A47'],plum:['#1d1022','#C47C8A']};
 const FONTS=[['system','Системный','ru en'],['pressstart','Press Start 2P','ru en'],['lobster','Lobster','ru en'],['blackops','Black Ops One','en'],['bebas','Bebas Neue','en'],['sciencegothic','Science Gothic','ru en'],['dela','Dela Gothic One','ru en']];
 const FF={pressstart:'PressStart',lobster:'Lobster',blackops:'BlackOps',bebas:'Bebas',sciencegothic:'ScienceGothic',dela:'Dela'};
 let LANG=(()=>{try{const l=localStorage.getItem('lang');if(l==='ru'||l==='en')return l}catch(e){}return(navigator.language||'ru').toLowerCase().startsWith('ru')?'ru':'en'})();

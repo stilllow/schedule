@@ -39,7 +39,7 @@ function buildICS(){
 function exportICS(){
  const b=new Blob([buildICS()],{type:'text/calendar;charset=utf-8'}),u=URL.createObjectURL(b),a=document.createElement('a');
  a.href=u;a.download='schedule.ics';document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),2000);
- toast('Файл расписания скачан. Откройте его, чтобы добавить в календарь');
+ toast('Файл скачан. Откройте его, чтобы добавить в календарь.');
 }
 const newToken=()=>{const a=new Uint8Array(24);crypto.getRandomValues(a);return btoa(String.fromCharCode(...a)).replace(/\+/g,'-').replace(/\//g,'_').replace(/=/g,'')};
 const shareUrl=()=>location.origin+location.pathname+'?s='+P.share;
@@ -60,7 +60,7 @@ async function loadShared(tok){
  L=(d.lessons||[]).map(fromRow);OV={};(d.overrides||[]).forEach(x=>OV[x.lesson_id+x.on_date]=x);HW=[];SH=d;wsel=wkType(new Date());
 }
 function sharedHTML(){
- if(!SH)return`<div class="auth gl"><div class="lg">${langBtns()}</div><h1>Ссылка недействительна</h1><p class="n">Владелец мог отключить доступ или ссылка скопирована не полностью.</p></div>`;
+ if(!SH)return`<div class="auth gl"><div class="lg">${langBtns()}</div><h1>Ссылка недействительна</h1><p class="n">Доступ отключён или ссылка неполная.</p></div>`;
  if(!['today','week','elv'].includes(view))view='today';
  const tabs=[['today','Сегодня'],['week','Расписание'],['elv','Факультативы']];
  return`<div class="top"><div><h1>Расписание: ${esc(P.name||'')}</h1><span class="n">Только просмотр</span></div><div class="lg">${langBtns()}</div></div><div class="sg gl" style="margin-bottom:12px">${tabs.map(([k,n])=>`<button class="btn ${view===k?'':'g'}" data-a="sv" data-v="${k}">${n}</button>`).join('')}</div>`+(view==='today'?todayHTML(true):view==='elv'?elvHTML(true):weekTop());

@@ -44,16 +44,16 @@ function elvHTML(ro){
 }
 function eleHTML(){
  const gs=elGroups();
- return`<div class="top"><h1>Редактирование факультативов</h1><button class="btn g" data-a="imp" data-g="el">${ic('upload')}Импорт</button></div><p class="n hint">Добавьте кружки и секции: у одного факультатива может быть несколько дней и разное время.</p><button class="addtile" data-a="eladd">${ic('plus')}Добавить факультатив</button>`+gs.map(g=>elCard(g,true)).join('');
+ return`<div class="top"><h1>Редактирование факультативов</h1><button class="btn g" data-a="imp" data-g="el">${ic('upload')}Импорт</button></div><p class="n hint">Один факультатив — несколько дней и разное время.</p><button class="addtile" data-a="eladd">${ic('plus')}Добавить факультатив</button>`+gs.map(g=>elCard(g,true)).join('');
 }
-const sessRow=r=>`<div class="sess"><input type="hidden" name="sid" value="${r.id||''}"><button type="button" class="ib" data-a="elrm" aria-label="Удалить день">${ic('trash')}</button>${fld('День',`<select name="sd">${DAYS.map((n,i)=>`<option value="${i}" ${r.day===i?'selected':''}>${n}</option>`).join('')}</select>`)}<div class="row t2">${fld('Начало',`<input name="sa" type="time" required value="${r.start}">`)}${fld('Конец',`<input name="sb" type="time" required value="${r.end}">`)}</div>${fld('Аудитория',`<input name="sr" maxlength="30" value="${esc(r.room||'')}">`)}${P.elCyc?fld('Неделя',`<select name="sw">${['both','up','down'].map(k=>`<option value="${k}" ${r.week===k?'selected':''}>${WN[k]}</option>`).join('')}</select>`):''}</div>`;
+const sessRow=r=>`<div class="sess"><input type="hidden" name="sid" value="${r.id||''}"><div class="sline">${fld('День',`<select name="sd">${DAYS.map((n,i)=>`<option value="${i}" ${r.day===i?'selected':''}>${n}</option>`).join('')}</select>`)}<button type="button" class="ib" data-a="elrm" aria-label="Удалить день">${ic('trash')}</button></div><div class="row t2">${fld('Начало',`<input name="sa" type="time" required value="${r.start}">`)}${fld('Конец',`<input name="sb" type="time" required value="${r.end}">`)}</div>${fld('Аудитория',`<input name="sr" maxlength="30" value="${esc(r.room||'')}">`)}${P.elCyc?fld('Неделя',`<select name="sw">${['both','up','down'].map(k=>`<option value="${k}" ${r.week===k?'selected':''}>${WN[k]}</option>`).join('')}</select>`):''}</div>`;
 function openElective(g){
  g=g||{subject:'',teacher:'',color:'',notes:'',rows:[]};
  const rows=g.rows.length?g.rows:[{id:'',day:1,start:'16:00',end:'17:30',room:'',week:'both'}];
  dlg(g.subject?'Изменить факультатив':'Новый факультатив',
   fld('Название',`<input name="s" required maxlength="80" value="${esc(g.subject)}">`)+
   fld('Преподаватель',`<input name="t" maxlength="80" value="${esc(g.teacher)}">`)+
-  fld('Цвет',`<div class="sw">${PAL.map(c=>`<button type="button" data-a="pc" data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join('')}</div><input name="c" type="color" value="${g.color||PAL[3]}">`)+
+  fld('Цвет',`<div class="sw">${PAL.map(c=>`<button type="button" data-a="pc" data-c="${c}" style="background:${c}" aria-label="${c}"></button>`).join('')}<input name="c" type="color" value="${g.color||PAL[3]}"></div>`)+
   fld('Заметка',`<input name="n" maxlength="200" value="${esc(g.notes||'')}">`)+
   `<h2 class="shd">Когда проходит</h2><div id="sess">${rows.map(sessRow).join('')}</div><button type="button" class="btn g wide" data-a="elsess">${ic('plus')}Добавить день</button>`,
   async v=>{

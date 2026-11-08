@@ -29,7 +29,7 @@ h1{font-size:1.35rem;margin:0}h2{font-size:1.05rem;margin:1.125rem 0 0.5rem}
 .card{border-radius:1.125rem;padding:0.75rem 0.875rem;margin-bottom:0.5rem}
 .l{display:flex;gap:0.75rem;align-items:center;border-left:0.25rem solid var(--c,var(--ac))}
 .t{min-width:3.5rem;font-weight:700;font-variant-numeric:tabular-nums}.t small{display:block;color:var(--mu);font-weight:400}
-.m{flex:1;min-width:0}.m b{display:block;overflow-wrap:anywhere}.m span{display:block;color:var(--mu);font-size:.9rem}
+.m{flex:1;min-width:0}.m b{display:block;overflow-wrap:break-word}.m span{display:block;color:var(--mu);font-size:.9rem}
 .now{box-shadow:0 0 0 2px var(--ac),0 0.5rem 2rem rgba(0,0,0,.16)}
 .tag{display:inline-block!important;font-size:.75rem!important;border:1px solid var(--gb);border-radius:0.375rem;padding:0 0.375rem;margin-top:2px}.tag.x{color:#ff7b7b!important}
 .od{color:#ff7b7b!important}

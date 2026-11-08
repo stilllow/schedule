@@ -49,13 +49,13 @@ a[x-apple-data-detectors]{color:inherit!important;text-decoration:none!important
 .grp>button>.i:last-child{width:1.125rem;height:1.125rem;opacity:.8}
 /* Шрифты и масштаб: ничего не должно выходить за рамки */
 .btn,.ib,.badge{max-width:100%}
-.btn{white-space:normal;text-align:center;line-height:1.2;overflow-wrap:anywhere}
+.btn{white-space:normal;text-align:center;line-height:1.2;overflow-wrap:break-word}
 .seg .btn,.sg .btn{white-space:normal;min-width:0}.sg .btn{padding:0.5625rem 0.5rem}
-h1,h2,label,.m b,.m span,.card p,.card{overflow-wrap:anywhere}
+h1,h2,label,.m b,.m span,.card p,.card{overflow-wrap:break-word}
 .top>*,.dh>*,.card,.m{min-width:0}
 .dn .btn:not(.sq){flex:0 1 auto;min-width:0}
-.dv span{min-width:0;overflow-wrap:anywhere}
-#nav{max-width:85vw}#nav button,#nav .brand{min-width:0;overflow-wrap:anywhere;text-align:left;line-height:1.2}
+.dv span{min-width:0;overflow-wrap:break-word}
+#nav{max-width:85vw}#nav button,#nav .brand{min-width:0;overflow-wrap:break-word;text-align:left;line-height:1.2}
 .wd{font-size:.9em;min-width:0;overflow:hidden}
 html[data-f=pressstart] body{font-size:.6rem}html[data-f=dela] body{font-size:.82rem}html[data-f=blackops] body{font-size:.9rem}
 html[data-f=pressstart] h1,html[data-f=dela] h1{font-size:1.05rem}
@@ -69,7 +69,7 @@ html[data-f=pressstart] .wd{font-size:.7em}
 .note .i{width:1.125rem;height:1.125rem;flex:none}
 .hint{margin:-0.25rem 0 0.875rem}.legend{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap}.legend .i{width:1rem;height:1rem;flex:none}
 .chips{display:flex;flex-wrap:wrap;gap:0.375rem;margin-top:0.5rem}
-.chip{display:inline-flex;align-items:center;gap:0.3125rem;padding:0.25rem 0.75rem;border-radius:62.44rem;border:1px solid var(--gb);background:rgba(255,255,255,.12);font-size:.85rem;min-width:0;overflow-wrap:anywhere}
+.chip{display:inline-flex;align-items:center;gap:0.3125rem;padding:0.25rem 0.75rem;border-radius:62.44rem;border:1px solid var(--gb);background:rgba(255,255,255,.12);font-size:.85rem;min-width:0;overflow-wrap:break-word}
 .chip .i{width:0.875rem;height:0.875rem}.chip.on{background:var(--ac);color:var(--on);border-color:transparent}
 .chip.w{color:#ffb224;border-color:rgba(255,178,36,.55)}
 .tag.w{display:inline-flex!important;align-items:center;gap:0.25rem;color:#ffb224!important;border-color:rgba(255,178,36,.55)}.tag.w .i{width:0.75rem;height:0.75rem}

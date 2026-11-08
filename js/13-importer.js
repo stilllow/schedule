@@ -80,24 +80,24 @@ function openImport(el){
  dlg('Импорт расписания',
   fld('Куда добавить',`<select name="g"><option value="main" ${!el?'selected':''}>Основное расписание</option><option value="el" ${el?'selected':''}>Факультативы</option></select>`)+
   fld('Вставьте текст расписания',`<textarea name="t" id="impt" rows="7" placeholder="Например: Пн 08:30-10:00 Математика ауд. 214"></textarea>`)+
-  `<label>или загрузите файл</label><input type="file" id="impf" accept="image/*,.pdf,.xlsx,.xls,.csv,.txt"><p class="n" id="impst">Фото, PDF, Excel, CSV или текст. Распознавание не идеально, поэтому на следующем шаге всё можно проверить и поправить.</p>`,
+  `<label>или загрузите файл</label><input type="file" id="impf" accept="image/*,.pdf,.xlsx,.xls,.csv,.txt"><p class="n" id="impst">Фото, PDF, Excel, CSV или текст. Результат можно поправить на следующем шаге.</p>`,
   async v=>{
    impEl=v.get('g')==='el';
    const rows=parseSchedule(v.get('t')||'');
-   if(!rows.length){toast('Ничего не найдено. Проверьте текст: нужны дни недели и время вида 08:30-10:00.');return false}
+   if(!rows.length){toast('Не найдено. Нужны дни недели и время вида 08:30-10:00.');return false}
    impPreview(rows);return false;
   },'Распознать');
 }
 function impPreview(rows){
  const cy=impEl?P.elCyc:P.cyc;
  $('#dt').textContent='Проверьте занятия';
- $('#df').innerHTML=`<p class="n">Найдено занятий: ${rows.length}. Проверьте и исправьте.</p>`+rows.map((r,i)=>`<div class="sess"><label class="ck3"><input type="checkbox" name="on_${i}" checked>Включить</label>${r.unk?`<span class="tag w">${ic('alert')}День не определён</span>`:''}${fld('День',`<select name="d_${i}">${DAYS.map((n,k)=>`<option value="${k}" ${r.day===k?'selected':''}>${n}</option>`).join('')}</select>`)}<div class="row t2">${fld('Начало',`<input type="time" name="a_${i}" value="${r.start}">`)}${fld('Конец',`<input type="time" name="b_${i}" value="${r.end}">`)}</div>${fld('Предмет',`<input name="s_${i}" maxlength="80" value="${esc(r.subject)}">`)}<div class="row">${fld('Аудитория',`<input name="r_${i}" maxlength="30" value="${esc(r.room)}">`)}${fld('Преподаватель',`<input name="t_${i}" maxlength="80" value="${esc(r.teacher)}">`)}</div>${cy?fld('Неделя',`<select name="w_${i}">${['both','up','down'].map(k=>`<option value="${k}" ${r.week===k?'selected':''}>${WN[k]}</option>`).join('')}</select>`):''}</div>`).join('')+'<div class="row"><button type="button" class="btn g" id="cx">Отмена</button><button class="btn">Импортировать</button></div>';
+ $('#df').innerHTML=`<p class="n">Найдено: ${rows.length}. Проверьте и исправьте.</p>`+rows.map((r,i)=>`<div class="sess"><label class="ck3"><input type="checkbox" name="on_${i}" checked>Включить</label>${r.unk?`<span class="tag w">${ic('alert')}День не определён</span>`:''}${fld('День',`<select name="d_${i}">${DAYS.map((n,k)=>`<option value="${k}" ${r.day===k?'selected':''}>${n}</option>`).join('')}</select>`)}<div class="row t2">${fld('Начало',`<input type="time" name="a_${i}" value="${r.start}">`)}${fld('Конец',`<input type="time" name="b_${i}" value="${r.end}">`)}</div>${fld('Предмет',`<input name="s_${i}" maxlength="80" value="${esc(r.subject)}">`)}<div class="row">${fld('Аудитория',`<input name="r_${i}" maxlength="30" value="${esc(r.room)}">`)}${fld('Преподаватель',`<input name="t_${i}" maxlength="80" value="${esc(r.teacher)}">`)}</div>${cy?fld('Неделя',`<select name="w_${i}">${['both','up','down'].map(k=>`<option value="${k}" ${r.week===k?'selected':''}>${WN[k]}</option>`).join('')}</select>`):''}</div>`).join('')+'<div class="row acts"><button type="button" class="btn g" id="cx">Отмена</button><button class="btn">Импортировать</button></div>';
  $('#cx').onclick=()=>$('#dlg').close();
  DOK=async v=>{
   const out=[];
   rows.forEach((r,i)=>{if(!v.get('on_'+i))return;out.push({subject:(v.get('s_'+i)||'').trim(),day:+v.get('d_'+i),week:cy?(v.get('w_'+i)||'both'):'both',start:v.get('a_'+i),end:v.get('b_'+i),room:(v.get('r_'+i)||'').trim(),teacher:(v.get('t_'+i)||'').trim(),kind:r.kind||'',color:'',notes:'',el:impEl})});
   if(!out.length){toast('Выберите хотя бы одно занятие');return false}
-  if(out.some(o=>!o.subject||!o.start||!o.end||o.end<=o.start)){toast('Проверьте поля: нужны название и время (конец позже начала)');return false}
+  if(out.some(o=>!o.subject||!o.start||!o.end||o.end<=o.start)){toast('Нужны название и время (конец позже начала)');return false}
   const r=await sb.from('lessons').insert(out.map(toRow)).select();
   if(r.error){toast('Ошибка: '+r.error.message);return false}
   L=[...L,...r.data.map(fromRow)];toast('Импортировано: '+r.data.length);render();return true;
@@ -108,6 +108,6 @@ document.addEventListener('change',async e=>{
  const f=e.target.files[0],st=$('#impst'),set=m=>{if(st)st.textContent=m};
  if(!f)return;
  set('Распознаю…');
- try{const t=await fileText(f,set),box=$('#impt');box.value=(box.value?box.value+'\n':'')+t;set('Готово. Проверьте текст и нажмите «Распознать».')}
+ try{const t=await fileText(f,set),box=$('#impt');box.value=(box.value?box.value+'\n':'')+t;set('Готово. Нажмите «Распознать».')}
  catch(err){set('Не удалось прочитать файл')}
 });

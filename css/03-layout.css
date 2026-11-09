@@ -1,0 +1,33 @@
+/* Мобильная вёрстка */
+.dn{display:flex;gap:0.5rem;align-items:center;margin-bottom:0.625rem}
+.dn .btn.sq{flex:none;width:2.875rem;height:2.875rem;padding:0}.dn .btn:not(.sq){flex:none;height:2.875rem}
+.dn input{flex:1;min-width:0;margin:0;height:2.875rem}
+.seg2{display:grid;gap:0.5rem;margin-bottom:0.625rem}
+.sg{display:flex;gap:0.25rem;padding:0.25rem;border-radius:62.44rem}
+.sg .btn{flex:1;padding:0.5625rem 0.625rem;white-space:nowrap}.sg .btn.g{background:none;border:0;box-shadow:none}
+.dh h2{margin:0.875rem 0 0.375rem}.dh .btn.g{padding:0.5rem 0.875rem;font-size:.9rem}.empty{padding:0.875rem 0.5rem}
+h1::first-letter{text-transform:uppercase}
+@media(max-width:600px){.wrap{padding:4rem 0.875rem 2.5rem}.seg2{grid-template-columns:1fr}}
+@media(min-width:601px){.seg2{grid-template-columns:1fr 1fr}}
+/* Виджет времени и погоды (только ПК) */
+#wx{display:none}
+.wxh{display:flex;justify-content:space-between;gap:0.5rem;color:var(--mu);font-size:.9rem}.wxh span:first-child::first-letter{text-transform:uppercase}
+.wxm{display:flex;justify-content:space-between;align-items:center;margin:0.375rem 0 0.25rem}
+.wxt{font-size:3.3rem;line-height:1.05;font-weight:700;font-variant-numeric:tabular-nums}
+.wxw{display:flex;align-items:center;gap:0.5rem;font-size:2.3rem}.wxw .i{width:2.625rem;height:2.625rem}
+.wxs{display:flex;align-items:center;gap:0.5rem;flex-wrap:wrap;margin-bottom:0.625rem;font-size:.9rem}
+.pl{display:inline-flex;align-items:center;gap:2px;padding:0.25rem 0.625rem;border-radius:0.75rem;background:rgba(0,0,0,.18);border:1px solid var(--gb)}.pl .i{width:0.875rem;height:0.875rem}
+#wx .wds{margin:0;border:0;box-shadow:none;background:rgba(255,255,255,.1);-webkit-backdrop-filter:none;backdrop-filter:none}
+@media(hover:hover) and (pointer:fine) and (min-width:1100px){
+ #wx{display:block;position:fixed;top:1.25rem;right:1.25rem;width:23.12rem;border-radius:2rem;padding:1.125rem 1.25rem;z-index:10}
+ body.anon #wx{display:none}
+ .wrap{max-width:62.5rem;margin:0 25.75rem 0 max(4rem,calc((100vw - 88.25rem)/2))}
+}
+
+/* Safari/iOS: плавный переход фона в цвет системных панелей */
+@media(hover:none){
+ #bg::before,#bg::after{content:"";position:fixed;left:0;right:0;pointer-events:none}
+ #bg::before{top:0;height:5.625rem;background:linear-gradient(to bottom,var(--b1),transparent)}
+ #bg::after{bottom:0;height:8.75rem;background:linear-gradient(to top,var(--b1),transparent)}
+ .wrap{padding-bottom:calc(8.75rem + env(safe-area-inset-bottom,0px))}
+}

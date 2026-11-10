@@ -40,7 +40,7 @@ function render(){
  <div class="seg"><button class="btn ${mode==='in'?'':'g'}" data-a="mode" data-m="in">Вход</button><button class="btn ${mode==='up'?'':'g'}" data-a="mode" data-m="up">Регистрация</button></div>
  <form id="af"><label>Email</label><input id="u" type="email" autocomplete="email" required maxlength="100"><label>Пароль</label><input id="p" type="password" autocomplete="${mode==='in'?'current-password':'new-password'}" required minlength="6">
  ${mode==='up'?'<label>Повторите пароль</label><input id="p2" type="password" autocomplete="new-password" required>':''}
- <div class="err">${esc(err)}</div>${info?`<p class="n">${esc(info)}</p>`:''}<button class="btn" style="width:100%">${mode==='in'?'Войти':'Создать аккаунт'}</button>${mode==='in'?'<button type="button" class="btn d" data-a="forgot" style="width:100%;margin-top:6px">Забыли пароль?</button>':''}</form></div>`;return}
+ <div class="err">${esc(err)}</div>${info?`<p class="n">${esc(info)}</p>`:''}<button class="btn" style="width:100%">${mode==='in'?'Войти':'Создать аккаунт'}</button>${mode==='in'?'<button type="button" class="btn d" data-a="forgot" style="width:100%;margin-top:6px">Забыли пароль?</button>':''}</form><p class="n" style="text-align:center;margin:1rem 0 0">Версия сайта: ${APP_VERSION}</p></div>`;return}
  if(!P){A.innerHTML='<div class="empty">Загрузка…</div>';return}
  const now=new Date();let h='';
  if(view==='today'){h=todayHTML();
@@ -72,7 +72,7 @@ function render(){
   <div class="card gl"><h2 style="margin-top:0">Звонки (сетка пар)</h2><p class="n">Для быстрого выбора времени.</p>${P.bells.map((b,i)=>`<div class="bl"><b>${i+1}</b><input type="time" data-s="bell" data-i="${i}" data-k="0" value="${b[0]}"><input type="time" data-s="bell" data-i="${i}" data-k="1" value="${b[1]}"><button class="ib" data-a="bd" data-i="${i}" aria-label="Удалить">${ic('trash')}</button></div>`).join('')}<button class="btn g" data-a="ba" style="margin-top:8px">${ic('plus')}Пара</button></div>
   <div class="card gl"><h2 style="margin-top:0">Семестр и каникулы</h2><p class="n">В каникулы напоминаний нет.</p><div class="row"><div><label>Начало семестра</label><input type="date" data-s="sem" data-i="0" value="${P.sem[0]}"></div><div><label>Конец семестра</label><input type="date" data-s="sem" data-i="1" value="${P.sem[1]}"></div></div>
   ${P.hol.map((x,i)=>`<div class="dh"><span>${esc(x.title)}: ${fmt(x.from)} — ${fmt(x.to)}</span><button class="ib" data-a="hd" data-i="${i}" aria-label="Удалить">${ic('trash')}</button></div>`).join('')}<button class="btn g" data-a="ha" style="margin-top:8px">${ic('plus')}Каникулы</button></div>
-  <p class="n">Вы вошли как ${esc(me.email||'')}</p>`;
+  <p class="n">Вы вошли как ${esc(me.email||'')}</p><p class="n">Версия сайта: ${APP_VERSION}</p>`;
  }
  A.innerHTML=h;paintUser();$$('#app [aria-label]').forEach(e=>{if(!e.title)e.title=e.getAttribute('aria-label')});
 }

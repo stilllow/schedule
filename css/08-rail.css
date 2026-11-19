@@ -1,0 +1,58 @@
+/* Правая колонка на ПК: часы и погода сверху, ниже виджеты; механические часы; «Время суток» */
+#rail{display:none}
+@media(hover:hover) and (pointer:fine) and (min-width:1100px){
+ #rail{display:flex;flex-direction:column;gap:1rem;position:fixed;top:0;right:0;bottom:0;width:25.2rem;box-sizing:border-box;padding:1.25rem;overflow-y:auto;overflow-x:hidden;z-index:10}
+ #rail #wx{display:block;flex:none;border-radius:2rem;padding:1.125rem 1.25rem}
+ #rw{flex:none;padding-bottom:1rem}
+ body.anon #rail{display:none}
+}
+#rw .dh h2{margin:.2rem 0 .5rem}
+
+/* плитки виджетов: «сквиркл», тёмный центр и свечение по краям */
+.wgrid2{grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem}
+.wgrid2 .wg{--g1:#6d28d9;--g2:#d946ef;position:relative;aspect-ratio:1;min-height:0;padding:1rem 1.1rem;border-radius:2.4rem;overflow:hidden;color:#fff;gap:.15rem;border:0!important;-webkit-backdrop-filter:none;backdrop-filter:none;
+ background:radial-gradient(ellipse at 50% 50%,#050508 40%,var(--g1) 135%)!important;
+ box-shadow:inset 0 0 2rem .1rem var(--g2),inset 0 0 .5rem rgba(255,255,255,.22),0 .5rem 1.4rem rgba(0,0,0,.28)!important}
+.wgrid2 .wg.s2{aspect-ratio:2/1}
+.wg[data-p=pk]{--g1:#7c3aed;--g2:#d946ef}
+.wg[data-p=lm]{--g1:#4d7c0f;--g2:#a3e635}
+.wg[data-p=bl]{--g1:#0369a1;--g2:#38bdf8}
+.wg[data-p=or]{--g1:#c2410c;--g2:#ef4444}
+.wg .wh h3{color:rgba(255,255,255,.72);font-weight:300;font-size:.78rem;letter-spacing:.04em}
+.wg .wb{flex:1;min-height:0;overflow:hidden;color:#fff;font-weight:300}
+.wg .wb .hl{font-weight:400}.wg .n,.wg small,.wg .wrow small{color:rgba(255,255,255,.62)}
+.wg .wbig{font-size:3.2rem;font-weight:200;letter-spacing:-.02em;line-height:1}
+.wg[data-p=lm] .wbig,.wg[data-p=lm] .cd{color:#d9ff7a}
+.wg .wnote{flex:1;min-height:0;width:100%;resize:none;background:transparent;border:0;color:#fff;font:inherit;font-weight:300;outline:none}
+.wg .wctl{display:flex;flex-wrap:wrap;gap:.15rem;justify-content:flex-end}
+.wg .wctl .ib{width:1.55rem;height:1.55rem;border-radius:.55rem}.wg .wctl .ib .i{width:.9rem;height:.9rem}
+.wg .wh{flex-wrap:wrap}
+.wgtod{padding:0!important}.wgtod .wb{height:100%}.wgtod .wh{position:absolute;top:.5rem;right:.6rem;z-index:3}.wgtod .wh h3{display:none}
+.wgtod .tod{height:100%;aspect-ratio:auto;border-radius:0;box-shadow:none}
+
+/* механические часы */
+.ack{display:block;width:100%;height:auto;overflow:visible}
+.ack .cf{fill:rgba(0,0,0,.18);stroke:currentColor;stroke-opacity:.25;stroke-width:.8}
+.ack .tm{stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+.ack .tn{stroke:currentColor;stroke-width:.6;opacity:.45}
+.ack .hh line{stroke:currentColor;stroke-width:3.2;stroke-linecap:round}
+.ack .mh line{stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.ack .sh line{stroke:#ff5a5f;stroke-width:.9;stroke-linecap:round}
+.ack .cd0{fill:#ff5a5f}
+.wg[data-p=pk] .ack .sh line{stroke:#f0abfc}.wg[data-p=pk] .ack .cd0{fill:#f0abfc}
+.wxa{width:7.2rem;flex:none}
+.wa{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}.wa .ack{height:100%;width:auto;max-height:100%}
+
+/* «Время суток» */
+.tod{position:relative;display:block;aspect-ratio:2.3/1;border-radius:1.5rem;overflow:hidden;color:#fff;isolation:isolate;--tg:#7a8cff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.3),0 0 1.1rem -.2rem var(--tg);margin:.2rem 0 .6rem}
+.tod[data-k=dawn]{--tg:#ff9d5c}.tod[data-k=day]{--tg:#8aa8ff}
+.tod .tb{position:absolute;inset:0;z-index:-1;transition:opacity 2s}
+.tod .b0{background:radial-gradient(circle at 78% 30%,rgba(150,170,255,.35),transparent 45%),linear-gradient(160deg,#000,#070b1f)}
+.tod .b1{background:linear-gradient(135deg,#3a1c71,#d76d77 55%,#ffaf7b)}
+.tod .b2{background:linear-gradient(135deg,#2563eb,#8b5cf6)}
+.tod .tx{position:absolute;left:1rem;top:.8rem;display:flex;flex-direction:column;gap:.1rem}
+.tod .tx b{font-size:1.25rem;font-weight:400}.tod .tx span{font-size:.78rem;opacity:.75;font-weight:300}
+.tod .tt{position:absolute;right:1rem;top:.6rem;font-size:2rem;font-weight:200;font-variant-numeric:tabular-nums}
+.tod .tarc{position:absolute;left:0;right:0;bottom:0;width:100%;height:55%}
+.tod .ap{fill:none;stroke:rgba(255,255,255,.35);stroke-width:.6;stroke-dasharray:1.5 2}
+.tod .sun{fill:#ffd36b;filter:drop-shadow(0 0 .3rem #ffd36b)}.tod .moon{fill:#e6ecff;filter:drop-shadow(0 0 .3rem #aab8ff)}

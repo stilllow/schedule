@@ -1,0 +1,49 @@
+/* Карточка профиля: фон-картинка и рамки (стекло, неон, золото, аврора, Heartagram) */
+@property --ang{syntax:'<angle>';initial-value:0deg;inherits:false}
+@keyframes cspin{to{--ang:360deg}}
+.pframe{border-radius:1.9rem;margin-bottom:.6rem}
+.pframe .pcard{margin:0;position:relative;overflow:hidden}
+.pframe:not(.fr-glass){padding:3px}
+.pframe:not(.fr-glass) .pcard{border-radius:calc(1.75rem - 1px)}
+.pcard .pin{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;gap:.4rem;width:100%}
+.pcard h1{display:inline-flex;align-items:center;gap:.5rem;justify-content:center}
+
+/* картинка на заднем плане и затемнение для читаемости */
+.pbg{position:absolute;inset:0;z-index:0;background-size:cover;background-position:center}
+.pbg::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.28),rgba(0,0,0,.62))}
+.pcard.hasbg .pin,.pcard.hasbg .pin h1,.pcard.hasbg .pin .n,.pcard.hasbg .pin .bio{color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.6)}
+.pcard.hasbg .chip,.pcard.hasbg .pstat{color:#fff;background:rgba(0,0,0,.32);border-color:rgba(255,255,255,.28);text-shadow:none}
+.pcard.hasbg .pstat.on{color:#7dffb2}
+
+/* рамки */
+.fr-neon{background:conic-gradient(from var(--ang),var(--ac),transparent 25%,var(--ac) 50%,transparent 75%,var(--ac));animation:cspin 5s linear infinite;box-shadow:0 0 1.5rem -.2rem var(--ac)}
+.fr-gold{background:linear-gradient(135deg,#fff3b0,#d4a72c 28%,#7a5a10 52%,#f6d365 76%,#a8791a);box-shadow:0 .6rem 1.8rem rgba(212,167,44,.35)}
+.fr-aurora{background:conic-gradient(from var(--ang),#ff6ec7,#7873ff,#3be8ff,#4dffb0,#ffe66b,#ff6ec7);animation:cspin 7s linear infinite;box-shadow:0 0 1.6rem -.2rem rgba(120,115,255,.6)}
+.fr-him{background:linear-gradient(135deg,#8f0014,#1a0004 38%,#e3122e 68%,#2a0006);box-shadow:0 0 1.8rem -.1rem rgba(227,18,46,.55)}
+.fr-him2{background:conic-gradient(from var(--ang),#ff2a6d,#16000a,#ff2a6d 40%,#16000a 70%,#ff2a6d);animation:cspin 6s linear infinite;box-shadow:0 0 2rem rgba(255,42,109,.5)}
+
+/* Heartagram: тёмная карточка, красное свечение, большая хартаграмма на фоне */
+.fr-him .pcard,.fr-him2 .pcard{color:#f8e3e6;border-color:rgba(255,60,90,.25)!important;-webkit-backdrop-filter:none;backdrop-filter:none;
+ background:radial-gradient(120% 90% at 85% 0%,rgba(200,10,40,.42),transparent 56%),linear-gradient(160deg,#16030a,#070204)!important}
+.fr-him2 .pcard{background:radial-gradient(110% 80% at 15% 0%,rgba(255,42,109,.35),transparent 55%),linear-gradient(160deg,#0d0006,#030102)!important}
+.fr-him .pcard .n,.fr-him2 .pcard .n,.fr-him .pcard .bio,.fr-him2 .pcard .bio{color:#e2b5bc}
+.fr-him .pcard .chip,.fr-him2 .pcard .chip,.fr-him .pcard .pstat,.fr-him2 .pcard .pstat{background:rgba(255,40,80,.12);border-color:rgba(255,80,110,.3);color:#ffd5db}
+.fr-him .pcard .pstat.on,.fr-him2 .pcard .pstat.on{color:#7dffb2}
+.fr-him .pcard.hasbg .pbg::after,.fr-him2 .pcard.hasbg .pbg::after{background:linear-gradient(180deg,rgba(50,0,10,.55),rgba(0,0,0,.82))}
+.pcard .hgbig{position:absolute;right:-1.6rem;bottom:-1.8rem;width:12rem;color:#ff2a44;opacity:.2;transform:rotate(-12deg);filter:drop-shadow(0 0 .8rem #ff2a44);z-index:0;pointer-events:none}
+.fr-him2 .pcard .hgbig{color:#ff2a6d;opacity:.28;animation:hgpulse 3.4s ease-in-out infinite}
+@keyframes hgpulse{0%,100%{filter:drop-shadow(0 0 .5rem #ff2a6d)}50%{filter:drop-shadow(0 0 1.4rem #ff2a6d)}}
+.pcard .hgs{display:inline-flex;width:1.35rem;color:#ff3b59;filter:drop-shadow(0 0 .35rem #ff3b59)}
+.hg{display:block;width:100%;height:auto;overflow:visible}
+.fr-him .av.l,.fr-him2 .av.l{box-shadow:0 0 0 3px #e3122e,0 0 1.3rem rgba(227,18,46,.6)}
+.fr-him2 .av.l{box-shadow:0 0 0 3px #ff2a6d,0 0 1.3rem rgba(255,42,109,.7)}
+.fr-neon .av.l{box-shadow:0 0 0 2px var(--ac),0 0 1.1rem -.1rem var(--ac)}.fr-gold .av.l{box-shadow:0 0 0 3px #d4a72c}
+
+/* маленькие образцы рамок в выборе */
+.frmini{display:block;width:100%;padding:2px;border-radius:.9rem;margin:0;box-sizing:border-box}
+.frmini i{display:flex;align-items:center;justify-content:center;height:2rem;border-radius:.75rem;background:var(--gl);color:#ff3b59}
+.frmini.fr-him i,.frmini.fr-him2 i{background:linear-gradient(160deg,#16030a,#070204)}
+.frmini.fr-him2 i{color:#ff2a6d}
+.frmini .hg{width:1.5rem}
+.tile.on .frmini{box-shadow:0 0 0 2px var(--on)}
+@media(prefers-reduced-motion:reduce){.fr-neon,.fr-aurora,.fr-him2,.fr-him2 .pcard .hgbig{animation:none}}

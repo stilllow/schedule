@@ -1,0 +1,35 @@
+/* Полировка: плитки выбора, блоки дней, окна, цвет */
+.btn{overflow-wrap:break-word}
+.seg .btn,.sg .btn{min-width:auto}
+h1,h2,label,.m b,.m span,.card p,.card,.chip,.dv span{overflow-wrap:break-word}
+.tiles{display:grid;grid-template-columns:repeat(auto-fill,minmax(8.5rem,1fr));gap:.6rem;margin:.4rem 0 1rem}
+.tile{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.45rem;padding:.7rem .5rem;min-width:0;border-radius:1.2rem;border:1px solid var(--gb);background:rgba(255,255,255,.1);color:var(--tx);cursor:pointer;text-align:center;line-height:1.2;font-size:.9rem;overflow-wrap:normal;word-break:normal;hyphens:manual;box-shadow:inset 1.5px 1.5px 1px rgba(255,255,255,.35)}
+.tile .pv{width:100%;height:2.2rem;border-radius:.8rem;border:1px solid rgba(255,255,255,.4)}
+.tile .ag{font-size:1.6rem;line-height:1.1}
+.tile.on{background:var(--ac);color:var(--on);border-color:transparent}
+.tile:disabled{opacity:.38;cursor:not-allowed;filter:grayscale(.6)}
+.dayc{padding:1rem;margin-bottom:.8rem}.dayc>h2{margin:0 0 .6rem}
+.dayc .card{background:rgba(255,255,255,.1);-webkit-backdrop-filter:none;backdrop-filter:none;box-shadow:none;border-radius:1.2rem}
+.none{margin:.2rem 0 .8rem}
+.addrow{width:100%;display:flex;align-items:center;justify-content:center;gap:.5rem;padding:.65rem;margin-top:.2rem;border-radius:1rem;border:1.5px dashed var(--gb);background:transparent;color:var(--mu);cursor:pointer}
+.addrow .i{width:1.1rem;height:1.1rem}.addrow:hover{background:rgba(255,255,255,.12);color:var(--tx)}
+.acts{margin-top:1.2rem}
+.sline{display:flex;gap:.5rem;align-items:flex-end}.sline>div:first-child{flex:1;min-width:0}.sline .ib{flex:none;margin-bottom:.65rem}
+.sw{display:flex;gap:.5rem;flex-wrap:wrap;align-items:center;margin:.4rem 0 .8rem}
+input[type=color]{width:2.2rem;height:2.2rem;min-height:0;padding:0;margin:0;border-radius:50%;border:2px solid var(--gb);background:none;cursor:pointer;-webkit-appearance:none;appearance:none}
+input[type=color]::-webkit-color-swatch-wrapper{padding:0}input[type=color]::-webkit-color-swatch{border:0;border-radius:50%}input[type=color]::-moz-color-swatch{border:0;border-radius:50%}
+dialog:focus,dialog:focus-visible{outline:none}
+/* Расписание плитками 2×3 */
+.wgrid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:.8rem;align-items:stretch}
+.wgrid .dayc{display:flex;flex-direction:column;margin:0;min-height:11rem;padding:.9rem .8rem}
+.wgrid .dayc>h2{font-size:1rem;margin:0 0 .6rem}
+.wgrid .dayc .l{flex-wrap:wrap;gap:.3rem .5rem;padding:.55rem .65rem;border-left:.22rem solid var(--c,var(--ac));margin-bottom:.5rem}
+.wgrid .dayc .l::before{display:none}
+.wgrid .dayc .t{min-width:0;display:flex;align-items:baseline;gap:.25rem;font-size:.85rem}
+.wgrid .dayc .t small{display:inline;font-size:.85rem}.wgrid .dayc .t small::before{content:"–"}
+.wgrid .dayc .m{flex:1 1 100%;min-width:0}.wgrid .dayc .m b{font-size:.95rem}
+.wgrid .dayc .m+.ib{margin-left:auto}
+.wgrid .dayc .ib{width:1.8rem;height:1.8rem;border-radius:.6rem}.wgrid .dayc .ib .i{width:1rem;height:1rem}
+.wgrid .addrow{margin-top:auto}.wgrid .none{margin:.2rem 0 .6rem}
+/* Звонки: ровные строки без наложения */
+.bl{margin-bottom:.55rem}.bl input{height:3rem;min-height:0}.bl .ib{width:2.4rem;height:2.4rem}

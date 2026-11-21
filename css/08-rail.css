@@ -1,0 +1,71 @@
+/* Правая колонка на ПК: часы и погода сверху, ниже виджеты; механические часы; «Время суток» */
+#rail{display:none}
+@media(hover:hover) and (pointer:fine) and (min-width:1100px){
+ #rail{display:flex;flex-direction:column;gap:1rem;position:fixed;top:0;right:0;bottom:0;width:25.2rem;box-sizing:border-box;padding:1.25rem;overflow-y:auto;overflow-x:hidden;z-index:10}
+ #rail #wx{display:block;flex:none;border-radius:2rem;padding:1.125rem 1.25rem}
+ #rw{flex:none;padding-bottom:1rem}
+ body.anon #rail{display:none}
+}
+#rw .dh h2{margin:.2rem 0 .5rem}
+
+/* плитки виджетов: тот же liquid glass, что и весь интерфейс, с цветным свечением по краям */
+.wgrid2{grid-template-columns:repeat(2,minmax(0,1fr));gap:.9rem}
+.wg{--pc:var(--ac)}
+.wg[data-p=pk]{--pc:#a855f7}.wg[data-p=lm]{--pc:#84cc16}.wg[data-p=bl]{--pc:#38bdf8}.wg[data-p=or]{--pc:#fb7c3c}.wg[data-p=rs]{--pc:#f472b6}.wg[data-p=gn]{--pc:#34d399}.wg[data-p=th]{--pc:var(--ac)}
+.wgrid2 .wg{position:relative;aspect-ratio:1;min-height:0;padding:1rem 1.1rem;border-radius:2rem;overflow:hidden;gap:.15rem;color:var(--tx)}
+.wgrid2 .wg.s2{aspect-ratio:2/1}
+@supports(color:color-mix(in srgb,red,blue)){
+ .wgrid2 .wg{background:radial-gradient(130% 100% at 100% 0%,color-mix(in srgb,var(--pc) 34%,transparent),transparent 62%),linear-gradient(135deg,rgba(255,255,255,var(--ha,.2)),rgba(255,255,255,.03) 55%,rgba(255,255,255,.06)),var(--gl);
+  border-color:color-mix(in srgb,var(--pc) 42%,var(--gb));
+  box-shadow:inset 1.5px 1.5px 1px rgba(255,255,255,.5),inset 0 0 1.8rem color-mix(in srgb,var(--pc) 26%,transparent),0 .875rem 2.375rem var(--sh,rgba(0,0,0,.24))}
+}
+.wg .wh h3{margin:0;color:var(--mu);font-weight:600;font-size:.78rem;letter-spacing:.03em}
+.wg .wb{flex:1;min-height:0;overflow:hidden}
+.wg .wb .hl{font-weight:700}
+.wg .wbig{font-size:3rem;font-weight:300;letter-spacing:-.02em;line-height:1;color:var(--tx)}
+.wg .wbig.sm{font-size:1.9rem}
+@supports(color:color-mix(in srgb,red,blue)){.wg .wbig,.wg .cd{color:color-mix(in srgb,var(--pc) 72%,var(--tx))}}
+.wg .wnote{flex:1;min-height:0;width:100%;height:100%;resize:none;background:transparent;border:0;box-shadow:none;color:var(--tx);font:inherit;outline:none;margin:0;padding:0}
+.wg .wnote.big{font-size:1.25rem;line-height:1.3}
+.wg .wnote:focus{box-shadow:none}
+.wg .wh{display:flex;flex-wrap:wrap}
+.wg-edit{outline:2px dashed var(--ring);outline-offset:-.5rem}.wg-edit .wb{padding-bottom:2.1rem}
+.wgcfgbtn{position:absolute;left:50%;bottom:.7rem;transform:translateX(-50%);z-index:4;display:inline-flex;align-items:center;gap:.4rem;border:1px solid var(--gb);background:var(--ac);color:var(--on);border-radius:62rem;padding:.35rem .8rem;font-weight:700;font-size:.8rem;cursor:pointer;white-space:nowrap;box-shadow:0 .3rem .9rem rgba(0,0,0,.25)}
+.wgcfgbtn .i{width:.95rem;height:.95rem}
+.wghint{margin:0 0 .6rem}
+.wgtod{padding:0!important}.wgtod .wb{position:absolute;inset:0;margin:0}.wgtod .wh{position:absolute;top:.5rem;right:.6rem;z-index:3}.wgtod .wh h3{display:none}
+.wgtod .tod{height:100%;aspect-ratio:auto;border-radius:0;box-shadow:none;margin:0}
+.wgtod.wg-edit .wgcfgbtn{bottom:.5rem}
+/* выбор виджета при добавлении и окно настроек */
+.wgpick{display:grid;gap:.5rem;margin:.4rem 0 .8rem}
+.wgp{display:flex;flex-direction:column;align-items:flex-start;gap:.15rem;text-align:left;padding:.7rem .9rem;border-radius:1.2rem;border:1px solid var(--gb);background:rgba(255,255,255,.1);color:var(--tx);cursor:pointer}
+.wgp:hover{background:rgba(255,255,255,.2)}.wgp b{font-size:1rem}.wgp span{font-size:.82rem;color:var(--mu);line-height:1.3}
+.wgname{margin:0 0 .2rem;font-size:1.1rem}
+dialog .n{margin:.1rem 0 .7rem}
+
+/* механические часы */
+.ack{display:block;width:100%;height:auto;overflow:visible}
+.ack .cf{fill:rgba(0,0,0,.18);stroke:currentColor;stroke-opacity:.25;stroke-width:.8}
+.ack .tm{stroke:currentColor;stroke-width:1.6;stroke-linecap:round}
+.ack .tn{stroke:currentColor;stroke-width:.6;opacity:.45}
+.ack .hh line{stroke:currentColor;stroke-width:3.2;stroke-linecap:round}
+.ack .mh line{stroke:currentColor;stroke-width:2.2;stroke-linecap:round}
+.ack .sh line{stroke:#ff5a5f;stroke-width:.9;stroke-linecap:round}
+.ack .cd0{fill:#ff5a5f}
+.wg .ack .sh line{stroke:var(--pc)}.wg .ack .cd0{fill:var(--pc)}
+.wxa{width:8.6rem;flex:none}
+.wa{flex:1;min-height:0;display:flex;align-items:center;justify-content:center}.wa .ack{height:100%;width:auto;max-height:100%}
+
+/* «Время суток» */
+.tod{position:relative;display:block;aspect-ratio:2.3/1;border-radius:1.5rem;overflow:hidden;color:#fff;isolation:isolate;--tg:#7a8cff;box-shadow:inset 0 0 0 1px rgba(255,255,255,.3),0 0 1.1rem -.2rem var(--tg);margin:.2rem 0 .6rem}
+.tod[data-k=dawn]{--tg:#ff9d5c}.tod[data-k=day]{--tg:#8aa8ff}
+.tod .tb{position:absolute;inset:0;z-index:-1;transition:opacity 2s}
+.tod .b0{background:radial-gradient(circle at 78% 30%,rgba(150,170,255,.35),transparent 45%),linear-gradient(160deg,#000,#070b1f)}
+.tod .b1{background:linear-gradient(135deg,#3a1c71,#d76d77 55%,#ffaf7b)}
+.tod .b2{background:linear-gradient(135deg,#2563eb,#8b5cf6)}
+.tod .tx{position:absolute;left:1rem;top:.8rem;display:flex;flex-direction:column;gap:.1rem}
+.tod .tx b{font-size:1.25rem;font-weight:400}.tod .tx span{font-size:.78rem;opacity:.75;font-weight:300}
+.tod .tt{position:absolute;right:1rem;top:.6rem;font-size:2rem;font-weight:200;font-variant-numeric:tabular-nums}
+.tod .tarc{position:absolute;left:0;right:0;bottom:0;width:100%;height:55%}
+.tod .ap{fill:none;stroke:rgba(255,255,255,.35);stroke-width:.6;stroke-dasharray:1.5 2}
+.tod .sun{fill:#ffd36b;filter:drop-shadow(0 0 .3rem #ffd36b)}.tod .moon{fill:#e6ecff;filter:drop-shadow(0 0 .3rem #aab8ff)}

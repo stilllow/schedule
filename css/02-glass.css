@@ -1,0 +1,30 @@
+/* Liquid glass */
+.gl,dialog,#nav,.badge,#burger,.wds{background:linear-gradient(135deg,rgba(255,255,255,var(--ha,.2)),rgba(255,255,255,.03) 55%,rgba(255,255,255,.06)),var(--gl);-webkit-backdrop-filter:blur(1.875rem) saturate(190%);backdrop-filter:blur(1.875rem) saturate(190%);border:1px solid var(--gb);box-shadow:inset 1.5px 1.5px 1px rgba(255,255,255,.5),inset -1px -1px 1px rgba(255,255,255,.16),inset 0 0 1.625rem rgba(255,255,255,.08),0 0.875rem 2.375rem var(--sh,rgba(0,0,0,.24))}
+.card{border-radius:1.75rem;padding:0.875rem 1rem}dialog{border-radius:2rem}.badge{border-radius:62.44rem}
+.l{border-left:0}.l::before{content:"";width:0.3125rem;align-self:stretch;border-radius:0.5625rem;background:var(--c,var(--ac));flex:none}
+.i{width:1.375rem;height:1.375rem;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:0.5rem;border-radius:62.44rem;padding:0.6875rem 1.125rem;box-shadow:inset 1px 1px 1px rgba(255,255,255,.45),0 0.375rem 1rem rgba(0,0,0,.14)}
+.btn .i{width:1.125rem;height:1.125rem}
+.btn.g{background:rgba(255,255,255,.14);color:var(--tx);border:1px solid var(--gb);box-shadow:inset 1.5px 1.5px 1px rgba(255,255,255,.4),inset -1px -1px 1px rgba(255,255,255,.1)}
+.btn.d{box-shadow:none;background:none}
+.ib,.ti{border:1px solid var(--gb);background:rgba(255,255,255,.12);color:inherit;box-shadow:inset 1.5px 1.5px 1px rgba(255,255,255,.4),inset -1px -1px 1px rgba(255,255,255,.1);display:inline-flex;align-items:center;justify-content:center;flex:none}
+.ib{width:2.375rem;height:2.375rem;padding:0;border-radius:0.875rem;color:var(--tx);cursor:pointer}.ti{width:2.5rem;height:2.5rem;border-radius:0.875rem}
+.ib:hover,.btn.g:hover{background:rgba(255,255,255,.26)}
+.l .ib{width:2.125rem;height:2.125rem;border-radius:0.75rem}.l .ib .i{width:1.125rem;height:1.125rem}
+input,select,textarea{border-radius:1.125rem;background:rgba(255,255,255,.12)}
+#nav{left:0.75rem;top:calc(0.75rem + env(safe-area-inset-top,0px));bottom:calc(0.75rem + env(safe-area-inset-bottom,0px));border-radius:2rem;transform:translateX(-125%);padding:0.875rem 0.625rem}
+#nav.open{transform:none}
+#nav .brand{display:flex;align-items:center;gap:0.625rem;padding:2px 0.375rem 0.75rem}
+#nav button{display:flex;align-items:center;gap:0.75rem;padding:0.3125rem 0.75rem 0.3125rem 0.3125rem;border-radius:62.44rem}
+#nav button.on{background:rgba(255,255,255,.16);color:var(--tx);box-shadow:inset 1px 1px 1px rgba(255,255,255,.4)}
+#nav button.on .ti{background:var(--ac);color:var(--on);border-color:transparent}
+#burger{display:flex;align-items:center;justify-content:center;border-radius:1rem}
+.wds{display:flex;gap:0.25rem;padding:0.375rem;border-radius:62.44rem;margin-bottom:0.75rem}
+.wd{flex:1;min-width:0;border:0;background:none;padding:0.5625rem 0;border-radius:62.44rem;font-weight:600;color:var(--tx);cursor:pointer}
+.wd.on{background:#fff;color:#14202b;box-shadow:0 0.25rem 0.875rem rgba(0,0,0,.22)}
+.sw{display:flex;gap:0.5rem;flex-wrap:wrap;margin:0.375rem 0 0.25rem}.sw button{width:1.875rem;height:1.875rem;border-radius:50%;border:2px solid rgba(255,255,255,.6);cursor:pointer;padding:0}
+
+/* iOS: фон темы под системными панелями */
+html{background:var(--b1);-webkit-text-size-adjust:100%}
+body{min-height:100vh;min-height:100dvh}
+#bg{top:-8.75rem;bottom:-8.75rem;left:0;right:0;inset:-8.75rem 0}

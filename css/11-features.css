@@ -1,0 +1,71 @@
+/* Посещаемость, ссылка «Войти», подзадачи, поиск Ctrl+K, новые виджеты, перетаскивание */
+
+/* кнопка «Войти» на карточке пары */
+.join{display:inline-flex;align-items:center;gap:.35rem;align-self:flex-start;margin-top:.25rem;padding:.25rem .75rem;border-radius:62rem;background:var(--ac);color:var(--on);font-weight:700;font-size:.82rem;text-decoration:none;box-shadow:0 .25rem .7rem rgba(0,0,0,.2)}
+.join .i{width:.9rem;height:.9rem}.join:hover{filter:brightness(1.08)}
+.m .join{display:inline-flex}
+
+/* отметки посещаемости на карточке пары */
+.att{display:flex;gap:.3rem;flex-wrap:wrap;margin-top:.35rem}
+.ab{border:1px solid var(--gb);background:rgba(255,255,255,.1);color:var(--tx);border-radius:62rem;padding:.18rem .65rem;font-size:.78rem;font-weight:600;cursor:pointer}
+.ab:hover{background:rgba(255,255,255,.22)}
+.ab.on.was{background:#30a46c;border-color:#30a46c;color:#fff}
+.ab.on.missed{background:#e5484d;border-color:#e5484d;color:#fff}
+.ab.on.excused{background:#f5a524;border-color:#f5a524;color:#1b1200}
+.atsum{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-top:.8rem;text-align:center}
+.atsum b{display:block;font-size:1.6rem;font-weight:800;line-height:1.1}.atsum span{font-size:.78rem;color:var(--mu)}
+.abar{height:.5rem;border-radius:62rem;background:rgba(127,127,127,.25);overflow:hidden;margin:.35rem 0 .2rem}
+.abar i{display:block;height:100%;border-radius:inherit;background:#30a46c;transition:width .6s var(--ease)}
+.abar.warn i{background:#f5a524}.abar.bad i{background:#e5484d}
+.atr .m{min-width:0}
+
+/* задания: подзадачи, метки */
+.sts{display:flex;flex-direction:column;gap:.25rem;margin-top:.45rem}
+.stk{display:flex;align-items:flex-start;gap:.5rem;text-align:left;border:0;background:transparent;color:var(--tx);padding:.1rem 0;cursor:pointer;font-size:.88rem}
+.stk .i{flex:none;width:1.1rem;height:1.1rem;padding:.12rem;border-radius:.35rem;border:1.5px solid var(--gb);color:transparent;box-sizing:border-box}
+.stk.on .i{background:var(--ac);border-color:var(--ac);color:var(--on)}
+.stk.on span{text-decoration:line-through;opacity:.6}
+.hwr .m>span .tag{margin-right:.3rem}
+label.chk{display:flex;gap:.5rem;align-items:flex-start;margin:.4rem 0;font-weight:500}
+label.chk input{width:auto;margin-top:.2rem}
+.bkl{display:flex;gap:.35rem;flex-wrap:wrap;margin:.4rem 0}
+
+/* поиск Ctrl+K */
+#srch{position:fixed;inset:0;z-index:300;display:flex;align-items:flex-start;justify-content:center;padding:12vh 1rem 1rem;background:rgba(5,10,16,.45);-webkit-backdrop-filter:blur(.5rem);backdrop-filter:blur(.5rem);animation:fadein .2s}
+#srch[hidden]{display:none}
+.srbox{width:100%;max-width:36rem;max-height:70vh;display:flex;flex-direction:column;border-radius:1.6rem;padding:.7rem;animation:dlgin .35s var(--ease)}
+.srin{display:flex;align-items:center;gap:.6rem;padding:.2rem .5rem .6rem;border-bottom:1px solid var(--gb)}
+.srin .i{flex:none;width:1.2rem;height:1.2rem;color:var(--mu)}
+.srin input{flex:1;border:0;background:transparent;box-shadow:none;font-size:1.05rem;padding:.3rem 0;margin:0;color:var(--tx);outline:none}
+.srin input:focus{box-shadow:none}
+kbd{font:inherit;font-size:.72rem;color:var(--mu);border:1px solid var(--gb);border-radius:.4rem;padding:.1rem .4rem;background:rgba(255,255,255,.08)}
+#srl{overflow-y:auto;padding:.4rem 0;min-height:3rem}
+.srg{font-size:.72rem;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--mu);padding:.5rem .6rem .15rem}
+.sri{display:flex;flex-direction:column;align-items:flex-start;width:100%;text-align:left;gap:.1rem;border:0;border-left:3px solid var(--c,transparent);background:transparent;color:var(--tx);padding:.45rem .7rem;border-radius:.8rem;cursor:pointer}
+.sri.on{background:rgba(255,255,255,.18)}
+.sri b{font-size:.95rem}.sri span{font-size:.8rem;color:var(--mu);max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.srh{margin:.3rem .6rem 0;font-size:.74rem;text-align:center}.srnone{padding:1rem;text-align:center}
+.srbtn kbd{margin-left:auto}
+body.sropen{overflow:hidden}
+
+/* новые виджеты */
+.wl{display:flex;align-items:center;gap:.55rem;margin:.18rem 0}
+.wl i{flex:none;width:.28rem;align-self:stretch;min-height:1.7rem;border-radius:62rem;background:var(--c,var(--pc));box-shadow:0 0 .6rem -.1rem var(--c,var(--pc))}
+.wl span{min-width:0}.wl b{display:block;font-size:.88rem;font-weight:600;line-height:1.15;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.wl small{color:var(--mu);font-size:.74rem}
+.ring{--p:0;position:relative;width:4.4rem;height:4.4rem;border-radius:50%;display:flex;align-items:center;justify-content:center;background:conic-gradient(var(--pc) calc(var(--p)*1%),rgba(127,127,127,.25) 0);margin:.15rem 0 .25rem}
+.ring::before{content:"";position:absolute;inset:.42rem;border-radius:50%;background:var(--gl);-webkit-backdrop-filter:blur(.3rem);backdrop-filter:blur(.3rem)}
+.ring b{position:relative;font-size:1rem;font-weight:800}
+.wwx{display:flex;align-items:center;gap:.5rem}.wwx .i{width:2.4rem;height:2.4rem;color:var(--pc)}
+.wg .join{margin-top:.35rem}
+
+/* перетаскивание плиток */
+.wg[draggable=true]{cursor:grab}
+.wg.dragging{opacity:.45;transform:scale(.96)}
+.wg.over{outline:2px solid var(--ac);outline-offset:3px}
+
+/* виджеты на телефоне: те же плитки в основной колонке */
+@media(max-width:600px){
+ .wgrid2 .wg{padding:.8rem .9rem;border-radius:1.7rem}
+ .wg .wbig{font-size:2.3rem}
+ .wgsec .dh h2{margin:.2rem 0}
+}
